@@ -7,10 +7,38 @@ using Tao.Sdl;
 
 namespace No_Colors
 {
-    class StaticSprite
+    class StaticSpriteA : SpriteA
     {
+        //Class to Floor A...
+    }
 
-        //Class to Static Sprites: Walls, Floor, Blocks, etc...
+    class StaticSpriteB : SpriteB
+    {
+        //Class to Floor B...
+    }
 
+    class StaticSpriteC : SpriteC
+    {
+        //Class to Floor C...
+    }
+
+    class StaticSpriteD : SpriteD
+    {
+        //Class to Floor D...
+    }
+
+    class StaticSpriteE : SpriteE
+    {
+        //Class to Floor E...
+    }
+
+    class StaticSpriteF : SpriteF
+    {
+        //Class to Floor F...
+    }
+
+    class StaticSpriteG : SpriteG
+    {
+        //Class to Floor G...
     }
 }

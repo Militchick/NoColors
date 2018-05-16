@@ -11,9 +11,9 @@ namespace No_Colors
     {
         //Screen that only appears if win all levels
 
-        //A Static image, with the message below "Press Space to Continue"
+        //TODO A Static image, with the message below "Press Space to Continue"
 
-        //If your Score is on the Hi-Score file, it load the PointScreen Class, 
+        //TODO If your Score is on the Hi-Score file, it load the PointScreen Class, 
         //if not, it load IntroScreen again
     }
 }

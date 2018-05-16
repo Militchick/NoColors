@@ -10,7 +10,7 @@ namespace No_Colors
     class CreditsScreen
     {
 
-        //Contains a Fixed Image with names of all involved on the proyect (or all names in class)
+        //TODO Contains a Fixed Image with names of all involved on the proyect (or all names in class)
 
         //Optative to put some scroll (Because that's extra job and is not something that is required)
 

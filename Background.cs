@@ -10,7 +10,13 @@ namespace No_Colors
     class Background
     {
 
-        //Contains Background Image (White) with laterally scroll [Level 1 to 4]
+        //TODO Contains Background Image (White) with laterally scroll [Level 1 and 2]
+
+        //TODO Background Image (Grey) lateral scroll [Level 3 and 4]
+
+        //TODO Background Image (Dark) [Level 5]
+
+        //Optative Background Image (Color) [Before Level 5] (Coming Soon Sprite)
 
         //Optative Background Image (Grey) with updown scroll [Maybe on Level 5]
 

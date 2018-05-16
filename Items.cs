@@ -12,11 +12,11 @@ namespace No_Colors
 
         //Since Almost all items will give us points, the only thing to do here is:
         
-        //Check what is an item with the console
+        //TODO Check what is an item with the console
 
-        //Give an Amount of Points for Each Different Type of Item
+        //TODO Give an Amount of Points for Each Different Type of Item
 
-        //And connect to the GameScreen to make the non-static items move
+        //TODO And connect to the GameScreen to make the non-static items move
 
     }
 }

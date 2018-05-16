@@ -9,14 +9,14 @@ namespace No_Colors
 {
     class IntroScreen
     {
-        //Contains initial screen (Image) with a submenu where you can choose:
+        //TODO Contains initial screen (Image) with a submenu where you can choose:
 
-        //Play the Game -> (To the ChooseCharacterScreen Class)
+        //TODO Play the Game -> (To the ChooseCharacterScreen Class)
 
-        //Help -> (To the HelpScreen Class)
+        //TODO Help -> (To the HelpScreen Class)
 
-        //Credits -> (To the CreditsScreen Class)
+        //TODO Credits -> (To the CreditsScreen Class)
 
-        //The Hand (with their Shadow Hands) will be used to select option
+        //TODO The Hand (with their Shadow Hands) will be used to select option
     }
 }

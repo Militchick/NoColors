@@ -11,7 +11,7 @@ namespace No_Colors
     {
 
         //This Special Screen Only Shows After a Game Over Screen or When You Win All Levels
-        //Contains All Ten Hi-Scores using a comparation between them inside a file called "HiScores"
+        //TODO Contains All Ten Hi-Scores using a comparation between them inside a file called "HiScores"
         //At the end of all scores must appear "Press Space to Continue" and go to the IntroScreen Again
 
     }

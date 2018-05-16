@@ -10,7 +10,7 @@ namespace No_Colors
     class Enemies
     {
 
-        //This class will contain all enemies that can kill the Main Character
+        //TODO This class will contain all enemies that can kill the Main Character
 
     }
 }

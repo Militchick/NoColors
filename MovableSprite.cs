@@ -10,9 +10,9 @@ namespace No_Colors
     class MovableSprite
     {
 
-        //Class to prepare animation to all Mobile Items, Enemies, Characters, etc
+        //TODO Class to prepare animation to all Mobile Items, Enemies, Characters, etc
 
-        //Adding the sprites through pixels and the coordinates in a X,Y position from the left
+        //TODO Adding the sprites through pixels and the coordinates in a X,Y position from the left
 
     }
 }

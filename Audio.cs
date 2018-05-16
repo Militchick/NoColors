@@ -10,8 +10,8 @@ namespace No_Colors
     class Audio
     {
 
-        //This class will prepare the audio and play one theme for level
-        //Including One for the IntroScreen and ChooseCharacter
+        //TODO This class will prepare the audio and play one theme for level
+        //TODO Including One for the IntroScreen and ChooseCharacter
 
         //Optative some sounds to when lose lives, jump, swim, and 
         //select character or options (No extra job)

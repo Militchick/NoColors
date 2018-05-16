@@ -9,8 +9,8 @@ namespace No_Colors
 {
     class _1UpItem
     {
-        // It works making the counter of lives add one more live
-        // This item is a Star
-        // Also give points
+        // TODO It works making the counter of lives add one more live
+        // This item is a Green Star
+        // Also gives points
     }
 }

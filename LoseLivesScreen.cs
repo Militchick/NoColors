@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq
+using System.Linq;
 using Tao.Sdl;
 
 //V 0.01 - Miguel Pastor (Empty Skeleton)
@@ -11,7 +11,7 @@ namespace No_Colors
     {
 
 
-        //Will Show a Image with the Character that the player chose and
+        //TODO Will Show a Image with the Character that the player chose and
         // an "x" static, continued by the number of lives
 
         // Pass three seconds, the counter of lives lose one

@@ -10,11 +10,11 @@ namespace No_Colors
     class GameOver
     {
 
-        //Class that only appears when your lives are below 0
+        //TODO Class that only appears when your lives are below 0
 
-        //The class that will show an static image with "Game Over" and "Press Space to Continue"
+        //TODO The class that will show an static image with "Game Over" and "Press Space to Continue"
 
-        //If your Score is on the Hi-Score file, it load the PointScreen Class, 
+        //TODO If your Score is on the Hi-Score file, it load the PointScreen Class, 
         //if not, it load IntroScreen again
 
     }
