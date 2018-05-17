@@ -92,7 +92,11 @@
     <Compile Include="FloorL.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="SpriteI.cs" />
+    <Compile Include="Font.cs" />
+    <Compile Include="MainCharacter.cs" />
+    <Compile Include="SpriteCharacters.cs" />
+    <Compile Include="SpriteEnemies.cs" />
+    <Compile Include="SpriteItemsB.cs" />
     <Compile Include="SpriteItemsA.cs" />
     <Compile Include="WallB.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -176,6 +180,8 @@
     <Compile Include="UWinScreen.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Waluigi.cs" />
+    <Compile Include="Wario.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -183,43 +189,43 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="audio\[ChooseCharacterScreen] Candy Pie %28Full%29.mp3">
+    <Content Include="audio\[ChooseCharacterScreen].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[CreditScreen] Feeling Refreshed %28M-24%29.mp3">
+    <Content Include="audio\[CreditScreen].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[EndScreens2] Glow %28Solo si acaba la anterior cancion, si esta acaba se repetirá la anterior%29.mp3">
+    <Content Include="audio\[EndScreens2] %28Solo si acaba la anterior cancion, si esta acaba se repetirá la anterior%29.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[EndScreens] Cyber Meteoroid.mp3">
+    <Content Include="audio\[EndScreens].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[GameOverScreen] Please, Again %28M-13%29.mp3">
+    <Content Include="audio\[GameOverScreen].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[HelpScreen] Jelly Coffe Joy %28M-9%29.mp3">
+    <Content Include="audio\[HelpScreen].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[IntroScreen] Philosophy Egg %28Instru%29.mp3">
+    <Content Include="audio\[IntroScreen].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[Level1] Applause %28Instrumental%29.mp3">
+    <Content Include="audio\[Level1].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[Level2] Hi・Ba・Na %28Instrumental%29.mp3">
+    <Content Include="audio\[Level2].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[Level3] STAY TUNED! %28Instru%29.mp3">
+    <Content Include="audio\[Level3].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[Level4] I Don%27t Mind Falling %28Instru%29.mp3">
+    <Content Include="audio\[Level4].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[Level5] Geek War Shout! %28Instrumental%29.mp3">
+    <Content Include="audio\[Level5].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[PointScreen] Fallen %28M-18%29.mp3">
+    <Content Include="audio\[PointScreen].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="images\Background Grey.gif">
@@ -255,12 +261,7 @@
     <Content Include="images\left_hand_light.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\MC_left.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="images\MC_right.gif">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="images\MC.gif" />
     <Content Include="images\more_tiles.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -285,7 +286,13 @@
     <Content Include="SDL_mixer.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="SDL_ttf.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Tao.Sdl.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="zlib1.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

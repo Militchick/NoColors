@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Tao.Sdl;
 
+//V 0.02 - Miguel Pastor (Ready Slot A of Wall Tile)
 //V 0.01 - Miguel Pastor (Empty Skeleton)
-//TODO Class to Put Images for Differents Floors
 
 namespace No_Colors
 {

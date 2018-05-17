@@ -3,32 +3,67 @@ using System.Collections.Generic;
 using System.Linq;
 using Tao.Sdl;
 
+//V 0.03 - Miguel Pastor (Added Main Character)
 //V 0.01 - Miguel Pastor (Empty Skeleton)
 
 namespace No_Colors
 {
-    class GameScreen
+    class GameScreen : Screen
     {
-        //Add the Background, Audio and Level coming from other classes
+        //TODO Add the Background, Audio and Level coming from other classes
 
-        //Add All that enters to the screen when the game is playing:
+        MainCharacterA characterA;
+        MainCharacterB characterB;
+        Level level;
+        int chosenPlayer;
+        Font font;
+        Audio audio;
+        IntPtr textTimer;
+        
+        // Choosing Player
 
-        //Code to Kill Enemies if we Jump and Do Enemies Kill us if we collide laterally with them
+        public int ChosenPlayer
+        {
+            get
+            {
+                return chosenPlayer;
+            }
+            set
+            {
+                if(value >= 1 && value <= 2)
+                {
+                    chosenPlayer = value;
+                    switch(value)
+                    {
+                        case 1:
+                            characterA = new Wario();
+                            break;
+                        case 2:
+                            characterB = new Waluigi();
+                            break;
+                    }
+                }
+            }
+        }
 
-        //Finish preparing the actions of every item
+        //TODO Add All that enters to the screen when the game is playing:
 
-        //Move Enemies (Each type differently) 
+        //TODO Code to Kill Enemies if we Jump and Do Enemies Kill us if we collide laterally with them
 
-        //Move Main Character (Including jump or swiming), better said, prepare input
+        //TODO Finish preparing the actions of every item
 
-        //Move items and give items to every item and enemies
+        //TODO Move Enemies (Each type differently) 
 
-        //Check Collisions and update screen
+        //TODO Move Main Character (Including jump), better said, prepare input
 
-        //Add Pause Class Here
+        //TODO Move items and give items to every item and enemies
 
-        //Add Timer
+        //TODO Check Collisions and update screen
 
-        //Add LoseLives Class and GameOver Class inside the "kill enemies comment" more or less
+        //TODO Add Pause Class Here
+
+        //TODO Add Timer
+
+        //TODO Add LoseLives Class and GameOver Class inside the "kill enemies comment" more or less
     }
 }
