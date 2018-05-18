@@ -41,4 +41,23 @@ namespace No_Colors
     {
         //Class to Floor G...
     }
+
+    class StaticSpriteMC : SpriteCharacter
+    {
+        //Class to Main Characters...
+    }
+
+    class StaticSpriteEnemy : SpriteEnemies
+    {
+        //Class to Enemies...
+    }
+
+    class StaticSpriteItemsA : SpriteItemsA
+    {
+        //Class to Items...
+    }
+    class StaticSpriteItemsB : SpriteItemsB
+    {
+        //Class to Items...
+    }
 }

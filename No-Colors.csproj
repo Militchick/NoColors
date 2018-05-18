@@ -64,6 +64,8 @@
     <Compile Include="Enemies.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="ExitExPoint.cs" />
+    <Compile Include="ExitPoint.cs" />
     <Compile Include="FloorE.cs" />
     <Compile Include="FloorH.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -98,6 +100,7 @@
     <Compile Include="SpriteEnemies.cs" />
     <Compile Include="SpriteItemsB.cs" />
     <Compile Include="SpriteItemsA.cs" />
+    <Compile Include="StartPoint.cs" />
     <Compile Include="WallB.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -228,16 +231,16 @@
     <Content Include="audio\[PointScreen].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\Background Grey.gif">
+    <Content Include="images\Background_grey.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\Background Last Level %28NormalScroll%29.gif">
+    <Content Include="images\Backgroundlastlevel_normalscroll.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\Background Last Level %28VerticalScroll%29.gif">
+    <Content Include="images\Backgroundlastlevel_verticalscroll.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\Background White.gif">
+    <Content Include="images\Background_white.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="images\color_final_tiles.gif">
@@ -278,6 +281,24 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="images\WinImage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="levels\level1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="levels\level2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="levels\level3.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="levels\level4.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="levels\level5.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="levels\levelend.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SDL_image.dll">

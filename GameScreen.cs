@@ -18,7 +18,8 @@ namespace No_Colors
         int chosenPlayer;
         Font font;
         Audio audio;
-        IntPtr textTimer;
+        IntPtr textTimer, textSpace;
+        TopReturn top;
         
         // Choosing Player
 
@@ -44,6 +45,65 @@ namespace No_Colors
                     }
                 }
             }
+        }
+
+        public GameScreen(Hardware hardware) : base(hardware)
+        {
+            font = new Font("fonts/vga850.fon", 20);
+            audio = new Audio(44100, 2, 4096);
+            level = new Level("levels/level1.txt");
+            if (level = ("levels/level1.txt")); //Trying something #1
+            {
+                audio.AddMusic("audio/[Level1].mp3");
+            }
+            else if (level = "levels/level2.txt") // #2
+            {
+                audio.AddMusic("audio/[Level2].mp3");
+            }
+            else if (level = "levels/level3.txt") // #3
+            {
+                audio.AddMusic("audio/[Level3].mp3");
+            }
+            else if (level = "levels/level4.txt") // #4
+            {
+                audio.AddMusic("audio/[Level4].mp3");
+            }
+            else if (level = "levels/level5.txt") // #5
+            {
+                audio.AddMusic("audio/[Level5].mp3");
+            }
+            initTexts();
+        }
+
+        public void DecreaseTime(Object o)
+        {
+            Sdl.SDL_Color black = new Sdl.SDL_Color(255, 255, 255);
+            if (characterA.Lives > 0)
+            {
+                characterA.Time--;
+                textTimer = SdlTtf.TTF_RenderText_Solid(font.GetFontType(), "TIME: " + characterA.Time, black);
+            }
+            else if (characterB.Lives > 0)
+            {
+                characterB.Time--;
+                textTimer = SdlTtf.TTF_RenderText_Solid(font.GetFontType(), "TIME: " + characterB.Time, black);
+            }
+            else
+            {
+                if(top == true) //Bool to activate/deactivate de HiScore Screen
+                {
+                    PointsScreen.HiScore();
+                }
+
+                Images imgGameOver;
+                imgGameOver = new Images("images/GameOverImage.png", 1200, 740);
+                imgGameOver.MoveTo(0, 0);
+                hardware.DrawImage(imgGameOver);
+                hardware.UpdateScreen();
+                textSpace = SdlTtf.TTF_RenderText_Solid(font.GetFontType(), "PRESS SPACE TO CONTINUE...", black);
+                while (hardware.KeyPress() != Hardware.KEY_SPACE) ;
+            }
+            
         }
 
         //TODO Add All that enters to the screen when the game is playing:
