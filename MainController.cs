@@ -14,18 +14,23 @@ namespace No_Colors
         public const short SCREEN_WIDTH = 1200;
         public const short SCREEN_HEIGHT = 640;
 
-        public void MainScreen()
+        const float MOVEMENT_INCREMENT = 0.3f;
+        const float MAX_VERTICAL_SPEED = 2.0f;
+        const float VERTICAL_SPEED_DECREMENT = 0.015f;
+
+        static void main(string[] args)
         {
             //Here will be the controller code to move 
             //"between screens with images" and the game
 
             Hardware hardware = new Hardware(1200, 740, 24, false);
 
+
             IntroScreen intro = new IntroScreen(hardware);
             CreditsScreen credits = new CreditsScreen(hardware);
             HelpScreen help = new HelpScreen(hardware);
-            PointsScreen points = new PointsScreen(hardware);
-            ChooseCharacterScreen chooseCharacter = new ChooseCharacterScreen(hardware);
+            // ChooseCharacterScreen chooseCharacter = new ChooseCharacterScreen(hardware); 
+            // [ACTUALLY ON GAMESCREEN, TODO PUT IT ON THEIR CLASS]
             GameScreen game;
 
             do
@@ -34,13 +39,26 @@ namespace No_Colors
                 intro.Show();
                 if (!intro.GetExit())
                 {
-                    chooseCharacter.Show();
-                    game = new GameScreen(hardware);
-                    game.ChosenPlayer = chooseCharacter.GetChosenPlayer();
-                    hardware.ClearScreen();
-                    game.Show();
-                    hardware.ClearScreen();
-                    points.show();
+                    intro.Show();
+                    if(intro.ChoseMenu == 1)
+                    {
+                        chooseCharacter.Show();
+                        game = new GameScreen(hardware);
+                        game.ChosenPlayer = chooseCharacter.GetChosenPlayer();
+                        hardware.ClearScreen();
+                        game.Show();
+                        hardware.ClearScreen();
+                    }
+                    else if(intro.ChoseMenu == 2)
+                    {
+                        help.Show();
+                        help = new HelpScreen(hardware);
+                    }
+                    else if(intro.ChoseMenu == 3)
+                    {
+                        credits.Show();
+                        credits = new CreditsScreen(hardware);
+                    }
                 }
             }
             while (!intro.GetExit());

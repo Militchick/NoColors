@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Tao.Sdl;
 using System.IO;
+using System.Threading;
+
+//V 0.06 - Miguel Pastor (Deleted ChooseCharacter Method from here
+//                          and added to a class, timer IN PROGRESS)
 //V 0.05 - Miguel Pastor (Added PointScreen, Move of Main Character)
 //V 0.03 - Miguel Pastor (Added Main Character)
 //V 0.01 - Miguel Pastor (Empty Skeleton)
@@ -11,7 +15,19 @@ namespace No_Colors
 {
     class GameScreen : Screen
     {
-        //TODO Add the Background, Audio and Level coming from other classes
+        //Add the Background, Audio and Level coming from other classes
+
+        public const short SCREEN_WIDTH = 1200;
+        public const short SCREEN_HEIGHT = 640;
+
+        const int CHARACTER_SPRITE_HEIGHT = 35;
+        const int CHARACTER_SPRITE_WIDTH = 27;
+
+        const int SPRITE_MAX_COUNT = 50;
+
+        const float MOVEMENT_INCREMENT = 0.3f;
+        const float MAX_VERTICAL_SPEED = 2.0f;
+        const float VERTICAL_SPEED_DECREMENT = 0.015f;
 
         MainCharacterA characterA;
         MainCharacterB characterB;
@@ -21,34 +37,8 @@ namespace No_Colors
         Audio audio;
         IntPtr textTimer, textSpace, textLives;
         bool top = false;
-        int points, force, Gravity;
-        Boolean Player_Jump;
-        
-        // Choosing Player
+        int points;
 
-        public int ChosenPlayer
-        {
-            get
-            {
-                return chosenPlayer;
-            }
-            set
-            {
-                if(value >= 1 && value <= 2)
-                {
-                    chosenPlayer = value;
-                    switch(value)
-                    {
-                        case 1:
-                            characterA = new Wario();
-                            break;
-                        case 2:
-                            characterB = new Waluigi();
-                            break;
-                    }
-                }
-            }
-        }
 
         public GameScreen(Hardware hardware) : base(hardware)
         {
@@ -75,8 +65,15 @@ namespace No_Colors
             {
                 audio.AddMusic("audio/[Level5].mp3");
             }
+            else if (level = "levels/FinalLevel.txt") // #5
+            {
+                audio.AddMusic("audio/[EndScreens].mp3");
+                audio.AddMusic("audio/[EndScreens2].mp3");
+            }
             initTexts();
         }
+
+        //Add Timer
 
         public void DecreaseTime(Object o)
         {
@@ -113,6 +110,14 @@ namespace No_Colors
                 while (hardware.KeyPress() != Hardware.KEY_SPACE) ;
             }
             
+        }
+
+        private void tick(ref DateTime timestock)
+        {
+            if ((DateTime.Now - timestock).TotalMilliseconds > DAMAGE_INTERVAL)
+            {
+                timestock = DateTime.Now;
+            }
         }
 
         //CLASS HI-SCORE VERSIONS
@@ -269,45 +274,132 @@ namespace No_Colors
             }
             if (space)
             {
-                Force = Gravity;
-                Player_Jump = true;
+                
             }
         }
 
-        //Code to fall after jump
-
-        private void timer_Gravity_Tick(object sender, EventArgs e)
+        static void Main(string[]args)
         {
-            if(!Player_Jump && pb_Player.Location.Y +
-                pb_Player.Height < WorldFrame.Height - 2 
-                && !Collision_Top(pb_Player))
-            {
-                pb_Player.Top += Speed_Fall;
-            }
+            Hardware hardware = new Hardware(1200, 740, 24, false);
 
-            if(!Player_Jump && pb_Player.Location.Y +pb_Player.Height > WorldFrame.Height - 1)
+            int key = 0, spriteCount = 0, currentSprite = 1;
+            bool left, right, isFalling = false, isJumping = false;
+            float verticalSpeed = 0.0f, horizontalSpeed = 0.0f;
+            Images characterA = new Images("images/MC.gif", CHARACTER_SPRITE_WIDTH, CHARACTER_SPRITE_HEIGHT);
+            Images characterB = new Images("images/MC.gif", CHARACTER_SPRITE_WIDTH, CHARACTER_SPRITE_HEIGHT);
+            List<Images> bricks = new List<Images>();
+            characterA.MoveTo(0, 320 - CHARACTER_SPRITE_HEIGHT);
+            characterB.MoveTo(0, 320 - CHARACTER_SPRITE_HEIGHT);
+            while(key != Hardware.KEY_ESC) //While Debug
             {
-                pb_Player.Top--;
+                // Draw all
+                hardware.ClearScreen();
+                if(ChooseCharacterScreen.ChosenPlayer(value) = 1) //Si se ha escogido el primer personaje
+                {
+                    //Hardware and Code to Fix it
+                    hardware.DrawImage(characterA, (short)(currentSprite * CHARACTER_SPRITE_WIDTH), 0, CHARACTER_SPRITE_HEIGHT);
+                    hardware.UpdateScreen();
+                }
+                else if(ChooseCharacterScreen.ChosenPlayer(value) = 2)
+                {
+                    hardware.DrawImage(characterB, (short)(currentSprite * CHARACTER_SPRITE_WIDTH), 0, CHARACTER_SPRITE_HEIGHT);
+                    hardware.UpdateScreen();
+                }
+
+                // Move character from the keyboard input
+                hardware.GetEvents(out key);
+                left = hardware.IsKPressed(Hardware.KEY_LEFT);
+                right = hardware.IsKPressed(Hardware.KEY_RIGHT);
+
+                if (isFalling)
+                    characterA.Fall();
+                else if(isJumping)
+                {
+                    currentSprite = 0;
+                    characterA.MoveTo(characterA.GetX() + horizontalSpeed,
+                        characterA.GetY() + verticalSpeed);
+                    verticalSpeed += VERTICAL_SPEED_DECREMENT;
+                    if (verticalSpeed > MAX_VERTICAL_SPEED)
+                        verticalSpeed = MAX_VERTICAL_SPEED;
+                }
+                else if(key == Hardware.KEY_SPACE)
+                {
+                    isJumping = true;
+                    verticalSpeed = -1 * MAX_VERTICAL_SPEED;
+                    horizontalSpeed = left ? -1 * MOVEMENT_INCREMENT :
+                  right ? MOVEMENT_INCREMENT : 0.0f;
+                    characterA.MoveTo(characterA.GetX() + horizontalSpeed,
+                                     characterA.GetY() + verticalSpeed);
+                }
+                else if (left || right)
+                {
+                    if (left && characterA.GetX() > 0)
+                        characterA.MoveTo(characterA.GetX() - MOVEMENT_INCREMENT, characterA.GetY());
+                    else if (right && characterA.GetX() < SCREEN_WIDTH - CHARACTER_SPRITE_WIDTH)
+                        characterA.MoveTo(characterA.GetX() + MOVEMENT_INCREMENT, characterA.GetY());
+
+                    if (spriteCount < SPRITE_MAX_COUNT)
+                        spriteCount++;
+                    else
+                    {
+                        spriteCount = 0;
+                        currentSprite = (currentSprite + 1) % 3;
+                        if (hardware.IsKPressed(Hardware.KEY_RIGHT))
+                            currentSprite += 1;
+                        else
+                            currentSprite += 4;
+                    }
+                }
+
+                // Check Collisions and update screen
+
+                isFalling = !isJumping;
+                isFalling = false;
+                isJumping = false;
+
+                if (characterA.GetY() >=
+                    SCREEN_HEIGHT - CHARACTER_SPRITE_HEIGHT)
+                {
+                    characterA.MoveTo(characterA.GetX(), SCREEN_HEIGHT -
+                        CHARACTER_SPRITE_HEIGHT);
+                    isFalling = false;
+                    isJumping = false;
+                }
             }
         }
 
-        //Code to jump (IN PROGRESS)
-
-        private void timer_Jump_Tick(object sender, EventArgs e)
+        public override void Show()
         {
-            if(Force > 0)
+            short oldX, oldY, oldXMap, oldYMap;
+            DateTime timeStampFromClock = DateTime.Now;
+            byte currentLevel = 1;
+            bool gameOver = false;
+            if (characterA) //ChooseCharacter Character A
+            {
+                characterA.MoveTo(level.Start.X, level.Start.Y);
+            }
+            else if(characterB) //ChooseCharacter Character B
+            {
+                characterB.MoveTo(level.Start.X, level.Start.Y);
+            }
+            audio.PlayMusic(0, -1);
+
+            var timer = new Timer(this.DecreaseTime, null, 1000, 1000);
+
+            //IN PROGRESS Draw Everything
+
+            do
             {
 
             }
+            while (!gameOver && !hardware.IsKPressed(Hardware.KEY_P));
+            audio.StopMusic();
+            timer.Dispose();
         }
 
         //TODO Move items and give items to every item and enemies
 
-        //TODO Check Collisions and update screen
-
         //TODO Add Pause Class Here
-
-        //TODO Add Timer
 
         //TODO Add LoseLives Class and GameOver Class inside the "kill enemies comment" more or less
     }

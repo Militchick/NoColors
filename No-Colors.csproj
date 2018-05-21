@@ -195,7 +195,7 @@
     <Content Include="audio\[CreditScreen].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[EndScreens2] %28Solo si acaba la anterior cancion, si esta acaba se repetirá la anterior%29.mp3">
+    <Content Include="audio\[EndScreens2].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="audio\[EndScreens].mp3">
@@ -240,9 +240,11 @@
     <Content Include="images\Background_white.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\ChooseCharacter.gif" />
     <Content Include="images\color_final_tiles.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\FinalBackground.gif" />
     <Content Include="images\GameOverImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -261,6 +263,8 @@
     <Content Include="images\left_hand_light.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\LoseLivesA.gif" />
+    <Content Include="images\LoseLivesB.gif" />
     <Content Include="images\MC.gif" />
     <Content Include="images\more_tiles.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

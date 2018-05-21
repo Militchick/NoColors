@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Tao.Sdl;
 
+//V 0.05 - Miguel Pastor (KeyEvents)
 //V 0.02 - Miguel Pastor (Key Inputs, Arguments, Constructor, 
 //Destructor, Updating Screen Method, Clear Screen Method, and Add Text Method)
 //V 0.01 - Miguel Pastor (Empty Skeleton)
@@ -20,6 +21,7 @@ namespace No_Colors
         public const int KEY_LEFT = Sdl.SDLK_LEFT;
         public const int KEY_RIGHT = Sdl.SDLK_RIGHT;
         public const int KEY_SPACE = Sdl.SDLK_SPACE;
+        public const int KEY_P = Sdl.SDLK_p;
 
         //All arguments to the Hardware Constructor and Destructor
         short screenHeight;
@@ -60,6 +62,14 @@ namespace No_Colors
             Sdl.SDL_Rect target = new Sdl.SDL_Rect(img.X, img.Y, 
                 img.ImageWidth, img.ImageHeight);
             Sdl.SDL_BlitSurface(img.ImagePtr, ref source, screen, ref target);
+        }
+
+        public void DrawImage(Images images, short x, short y, short width, short height)
+        {
+            Sdl.SDL_Rect src = new Sdl.SDL_Rect(x, y, width, height);
+            Sdl.SDL_Rect dest = new Sdl.SDL_Rect((short)images.GetX(), (short)images.GetY(),
+                width, height);
+            Sdl.SDL_BlitSurface(images.GetImage(), ref src, screen, ref dest);
         }
 
         // Draws a sprite from a sprite sheet in 
@@ -125,6 +135,22 @@ namespace No_Colors
             Sdl.SDL_Rect src = new Sdl.SDL_Rect(0, 0, screenWidth, screenHeight);
             Sdl.SDL_Rect dest = new Sdl.SDL_Rect(x, y, screenWidth, screenHeight);
             Sdl.SDL_BlitSurface(textAsImage, ref src, screen, ref dest);
+        }
+
+        // Get Movement from keys
+
+        public void GetEvents(out int key)
+        {
+            key = -1;
+            Sdl.SDL_PumpEvents();
+            Sdl.SDL_Event evt;
+            if (Sdl.SDL_PollEvent(out evt) == 1)
+            {
+                if (evt.type == Sdl.SDL_KEYDOWN)
+                {
+                    key = evt.key.keysym.sym;
+                }
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 using Tao.Sdl;
 
+//V 0.06 - Miguel Pastor - (Fixed Some Mistakes from the last time) 
 //V 0.04 - Miguel Pastor (Start Adding Things to Level Class)
 //V 0.01 - Miguel Pastor (Empty Skeleton)
 
@@ -22,6 +23,7 @@ namespace No_Colors
         public List<SpriteA> floorA { get; }
         public List<SpriteA> floorB { get; }
         public List<SpriteA> floorC { get; }
+        public List<SpriteA> floorD { get; }
         public List<SpriteA> floorE { get; }
         public List<SpriteA> floorF { get; }
         public List<SpriteC> floorG { get; }
@@ -151,7 +153,7 @@ namespace No_Colors
                         }
                         else if (lines[i][j] == 'C')
                         {
-                            AddFloorC(new FloorB((short)(j * SpriteC.SPRITEC_WIDTH), (short)(i * SpriteC.SPRITEC_HEIGHT)));
+                            AddFloorC(new FloorC((short)(j * SpriteC.SPRITEC_WIDTH), (short)(i * SpriteC.SPRITEC_HEIGHT)));
                         }
                         else if (lines[i][j] == 'D')
                         {
@@ -245,39 +247,39 @@ namespace No_Colors
                         }
                         else if (lines[i][j] == 'Y') // Points Star
                         {
-                            Items.Add(new Items(Items.ItemType.Y_STAR, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
+                            items.Add(new Items(Items.ItemType.Y_STAR, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
                         }
                         else if (lines[i][j] == 'X') // Points Star x2
                         {
-                            Items.Add(new Items(Items.ItemType.R_STAR, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
+                            items.Add(new Items(Items.ItemType.R_STAR, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
                         }
                         else if (lines[i][j] == 'W') // Points Star x3 and Life
                         {
-                            Items.Add(new Items(Items.ItemType.G_STAR, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
+                            items.Add(new Items(Items.ItemType.G_STAR, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
                         }
                         else if (lines[i][j] == 'V') // Points Flower
                         {
-                            Items.Add(new Items(Items.ItemType.F_FLOWER, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
+                            items.Add(new Items(Items.ItemType.F_FLOWER, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
                         }
                         else if (lines[i][j] == 'U') // Points Flower x2
                         {
-                            Items.Add(new Items(Items.ItemType.I_FLOWER, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
+                            items.Add(new Items(Items.ItemType.I_FLOWER, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
                         }
                         else if (lines[i][j] == 'T') // Points Flower x3 and Time
                         {
-                            Items.Add(new Items(Items.ItemType.P_FLOWER, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
+                            items.Add(new Items(Items.ItemType.P_FLOWER, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
                         }
                         else if (lines[i][j] == 'R') // Points Berry
                         {
-                            Items.Add(new Items(Items.ItemType.R_BERRY, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
+                            items.Add(new Items(Items.ItemType.R_BERRY, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
                         }
                         else if (lines[i][j] == 'y') // Points Berry x2
                         {
-                            Items.Add(new Items(Items.ItemType.P_BERRY, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
+                            items.Add(new Items(Items.ItemType.P_BERRY, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
                         }
                         else if (lines[i][j] == 'x') // Points Cherry
                         {
-                            Items.Add(new Items(Items.ItemType.CHERRY, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
+                            items.Add(new Items(Items.ItemType.CHERRY, (short)(j * SpriteItemsA.SPRITEIA_WIDTH), (short)(i * SpriteItemsA.SPRITEIA_HEIGHT)));
                         }
                         //TODO ADD ENEMIES
 
@@ -287,130 +289,146 @@ namespace No_Colors
             }
 
         }
-
-    }
-    public void AddWallA(WallA w)
-    {
-        wallA.Add(w);
-    }
-    public void AddWallB(WallB x)
-    {
-        wallB.Add(x);
-    }
-    public void AddFloorA(FloorA v)
-    {
-        floorA.Add(v);
-    }
-    public void AddFloorB(FloorB u)
-    {
-        floorB.Add(u);
-    }
-    public void AddFloorC(FloorC s)
-    {
-        floorC.Add(s);
-    }
-    public void AddFloorD(FloorD t)
-    {
-        floorD.Add(t);
-    }
-    public void AddFloorE(FloorE r)
-    {
-        floorE.Add(s);
-    }
-    public void AddFloorF(FloorF q)
-    {
-        floorF.Add(t);
-    }
-    public void AddFloorG(FloorG p)
-    {
-        floorG.Add(p);
-    }
-    public void AddFloorH(FloorH o)
-    {
-        floorH.Add(o);
-    }
-    public void AddFloorI(FloorI m)
-    {
-        floorI.Add(m);
-    }
-    public void AddFloorJ(FloorJ n)
-    {
-        floorJ.Add(n);
-    }
-    public void AddFloorK(FloorK r)
-    {
-        floorK.Add(r);
-    }
-    public void AddFloorL(FloorL q)
-    {
-        floorL.Add(q);
-    }
-    public void AddFloorM(FloorM k)
-    {
-        floorM.Add(k);
-    }
-    public void AddFloorN(FloorN l)
-    {
-        floorN.Add(l);
-    }
-    public void AddFloorO(FloorO i)
-    {
-        floorO.Add(i);
-    }
-    public void AddFloorP(FloorP h)
-    {
-        floorP.Add(h);
-    }
-    public void AddFloorL(FloorL j)
-    {
-        floorL.Add(j);
-    }
-
-    public ushort CollidesCharacterAWith1_UPItem(MainCharacterA characterA)
-    {
-        int pos = 0;
-        ushort result = 0;
-        while (pos < items.Count && result == 0)
+        public void AddWallA(WallA w)
         {
-            if (characterA.CollidesWith(items[pos]))
-            {
-                result += items[pos].Lives;
-                items.RemoveAt(pos);
-            }
-            pos++;
+            wallA.Add(w);
         }
-        return result;
-    }
-
-    public ushort CollidesCharacterBWith1_UPItem(MainCharacterB characterB)
-    {
-        int pos = 0;
-        ushort result = 0;
-        while (pos < items.Count && result == 0)
+        public void AddWallB(WallB x)
         {
-            if (characterB.CollidesWith(items[pos]))
-            {
-                result += items[pos].Lives;
-                items.RemoveAt(pos);
-            }
-            pos++;
+            wallB.Add(x);
         }
-        return result;
-    }
-
-    public bool CollidesCharacterWithItems(MainCharacterA characterA)
-    {
-        int pos = 0;
-        bool collided = false;
-        while (pos < items.Count && !collided)
+        public void AddFloorA(FloorA v)
         {
-            if (characterA.CollidesWith(items[pos]))
-            {
-                collided = true;
-                items.RemoveAt(pos);
-            }
-            pos++;
+            floorA.Add(v);
         }
-        return collided;
+        public void AddFloorB(FloorB u)
+        {
+            floorB.Add(u);
+        }
+        public void AddFloorC(FloorC s)
+        {
+            floorC.Add(s);
+        }
+        public void AddFloorD(FloorD t)
+        {
+            floorD.Add(t);
+        }
+        public void AddFloorE(FloorE r)
+        {
+            floorE.Add(r);
+        }
+        public void AddFloorF(FloorF q)
+        {
+            floorF.Add(q);
+        }
+        public void AddFloorG(FloorG p)
+        {
+            floorG.Add(p);
+        }
+        public void AddFloorH(FloorH o)
+        {
+            floorH.Add(o);
+        }
+        public void AddFloorI(FloorI m)
+        {
+            floorI.Add(m);
+        }
+        public void AddFloorJ(FloorJ n)
+        {
+            floorJ.Add(n);
+        }
+        public void AddFloorK(FloorK r)
+        {
+            floorK.Add(r);
+        }
+        public void AddFloorL(FloorL q)
+        {
+            floorL.Add(q);
+        }
+        public void AddFloorM(FloorM k)
+        {
+            floorM.Add(k);
+        }
+        public void AddFloorN(FloorN l)
+        {
+            floorN.Add(l);
+        }
+        public void AddFloorO(FloorO i)
+        {
+            floorO.Add(i);
+        }
+        public void AddFloorP(FloorP h)
+        {
+            floorP.Add(h);
+        }
+        public void AddFloorJ(FloorL j)
+        {
+            floorL.Add(j);
+        }
+
+        public ushort CollidesCharacterAWith1_UPItem(MainCharacterA characterA)
+        {
+            int pos = 0;
+            ushort result = 0;
+            while (pos < items.Count && result == 0)
+            {
+                if (characterA.CollidesWith(items[pos]))
+                {
+                    result += items[pos].Lives;
+                    items.RemoveAt(pos);
+                }
+                pos++;
+            }
+            return result;
+        }
+
+        public ushort CollidesCharacterBWith1_UPItem(MainCharacterB characterB)
+        {
+            int pos = 0;
+            ushort result = 0;
+            while (pos < items.Count && result == 0)
+            {
+                if (characterB.CollidesWith(items[pos]))
+                {
+                    result += items[pos].Lives;
+                    items.RemoveAt(pos);
+                }
+                pos++;
+            }
+            return result;
+        }
+
+        public bool CollidesCharacterWithItems(MainCharacterA characterA)
+        {
+            int pos = 0;
+            bool collided = false;
+            while (pos < items.Count && !collided)
+            {
+                if (characterA.CollidesWith(items[pos]))
+                {
+                    collided = true;
+                    items.RemoveAt(pos);
+                }
+                pos++;
+            }
+            return collided;
+        }
+
+        public bool CollidesCharacterWithItemsB(MainCharacterB characterB)
+        {
+            int pos = 0;
+            bool collided = false;
+            while (pos < items.Count && !collided)
+            {
+                if (characterB.CollidesWith(items[pos]))
+                {
+                    collided = true;
+                    items.RemoveAt(pos);
+                }
+                pos++;
+            }
+            return collided;
+        }
+    
     }
 }
