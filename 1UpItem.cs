@@ -14,3 +14,4 @@ namespace No_Colors
         // Also gives points
     }
 }
+
