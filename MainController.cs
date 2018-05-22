@@ -24,13 +24,11 @@ namespace No_Colors
             //"between screens with images" and the game
 
             Hardware hardware = new Hardware(1200, 740, 24, false);
-
-
+            
             IntroScreen intro = new IntroScreen(hardware);
             CreditsScreen credits = new CreditsScreen(hardware);
             HelpScreen help = new HelpScreen(hardware);
-            // ChooseCharacterScreen chooseCharacter = new ChooseCharacterScreen(hardware); 
-            // [ACTUALLY ON GAMESCREEN, TODO PUT IT ON THEIR CLASS]
+            ChooseCharacterScreen chooseCharacter = new ChooseCharacterScreen(hardware);
             GameScreen game;
 
             do
@@ -45,6 +43,7 @@ namespace No_Colors
                         chooseCharacter.Show();
                         game = new GameScreen(hardware);
                         game.ChosenPlayer = chooseCharacter.GetChosenPlayer();
+
                         hardware.ClearScreen();
                         game.Show();
                         hardware.ClearScreen();

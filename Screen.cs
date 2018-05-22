@@ -22,5 +22,6 @@ namespace No_Colors
         public virtual void Show()
         {
         }
+
     }
 }

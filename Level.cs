@@ -51,7 +51,7 @@ namespace No_Colors
         public Images BackgroundB { get; set; }
         public Images BackgroundC { get; set; }
         public Images BackgroundD { get; set; }
-        // public Images BackgroundE { get; set; } (If is needed)
+        public Images BackgroundE { get; set; }
         public ExitPoint ExitLevel { get; set; }
         public ExitExPoint ExitExLevel { get; set; }
         public StartPoint Start { get; set; }
@@ -97,8 +97,8 @@ namespace No_Colors
             BackgroundA = new Images("images/Background_white.gif", 2500, 920);
             BackgroundB = new Images("images/Background_grey.gif", 2500, 920);
             BackgroundC = new Images("images/Backgroundlastlevel_normalscroll.gif", 2500, 920);
-            BackgroundD = new Images("images/LastBackground.gif", 0, 0); //Non-exist Yet (Coming Soon)
-            //BackgroundE = new Images("images/Backgroundlastlevel_verticalscroll.gif", 2500, 920);
+            BackgroundD = new Images("images/FinalBackground.gif", 13000, 650);
+            BackgroundE = new Images("images/Backgroundlastlevel_verticalscroll.gif", 920, 2500);
 
             // Prepare Map
 
@@ -149,27 +149,67 @@ namespace No_Colors
                         }
                         else if (lines[i][j] == 'B')
                         {
-                            AddFloorB(new FloorB((short)(j * SpriteB.SPRITEB_WIDTH), (short)(i * SpriteB.SPRITEB_HEIGHT)));
+                            AddFloorB(new FloorB((short)(j * SpriteA.SPRITEA_WIDTH), (short)(i * SpriteA.SPRITEA_HEIGHT)));
                         }
                         else if (lines[i][j] == 'C')
                         {
-                            AddFloorC(new FloorC((short)(j * SpriteC.SPRITEC_WIDTH), (short)(i * SpriteC.SPRITEC_HEIGHT)));
+                            AddFloorC(new FloorC((short)(j * SpriteA.SPRITEA_WIDTH), (short)(i * SpriteA.SPRITEA_HEIGHT)));
                         }
                         else if (lines[i][j] == 'D')
                         {
-                            AddFloorD(new FloorD((short)(j * SpriteD.SPRITED_WIDTH), (short)(i * SpriteD.SPRITED_HEIGHT)));
+                            AddFloorD(new FloorD((short)(j * SpriteA.SPRITEA_WIDTH), (short)(i * SpriteA.SPRITEA_HEIGHT)));
                         }
                         else if (lines[i][j] == 'E')
                         {
-                            AddFloorE(new FloorE((short)(j * SpriteE.SPRITEE_WIDTH), (short)(i * SpriteE.SPRITEE_HEIGHT)));
+                            AddFloorE(new FloorE((short)(j * SpriteA.SPRITEA_WIDTH), (short)(i * SpriteA.SPRITEA_HEIGHT)));
                         }
                         else if (lines[i][j] == 'F')
                         {
-                            AddFloorF(new FloorF((short)(j * SpriteF.SPRITEF_WIDTH), (short)(i * SpriteF.SPRITEF_HEIGHT)));
+                            AddFloorF(new FloorF((short)(j * SpriteA.SPRITEA_WIDTH), (short)(i * SpriteA.SPRITEA_HEIGHT)));
                         }
                         else if (lines[i][j] == 'G')
                         {
-                            AddFloorG(new FloorG((short)(j * SpriteG.SPRITEG_WIDTH), (short)(i * SpriteG.SPRITEG_HEIGHT)));
+                            AddFloorG(new FloorG((short)(j * SpriteC.SPRITEC_WIDTH), (short)(i * SpriteC.SPRITEC_HEIGHT)));
+                        }
+                        else if (lines[i][j] == 'H')
+                        {
+                            AddFloorH(new FloorH((short)(j * SpriteC.SPRITEC_WIDTH), (short)(i * SpriteC.SPRITEC_HEIGHT)));
+                        }
+                        else if (lines[i][j] == 'I')
+                        {
+                            AddFloorI(new FloorI((short)(j * SpriteC.SPRITEC_WIDTH), (short)(i * SpriteC.SPRITEC_HEIGHT)));
+                        }
+                        else if (lines[i][j] == 'J')
+                        {
+                            AddFloorJ(new FloorJ((short)(j * SpriteC.SPRITEC_WIDTH), (short)(i * SpriteC.SPRITEC_HEIGHT)));
+                        }
+                        else if (lines[i][j] == 'K')
+                        {
+                            AddFloorK(new FloorK((short)(j * SpriteA.SPRITEA_WIDTH), (short)(i * SpriteA.SPRITEA_HEIGHT)));
+                        }
+                        else if (lines[i][j] == 'L')
+                        {
+                            AddFloorL(new FloorL((short)(j * SpriteA.SPRITEA_WIDTH), (short)(i * SpriteA.SPRITEA_HEIGHT)));
+                        }
+                        else if (lines[i][j] == 'M')
+                        {
+                            AddFloorM(new FloorM((short)(j * SpriteA.SPRITEA_WIDTH), (short)(i * SpriteA.SPRITEA_HEIGHT)));
+                        }
+                        else if (lines[i][j] == 'N')
+                        {
+                            AddFloorN(new FloorN((short)(j * SpriteD.SPRITED_WIDTH), (short)(i * SpriteD.SPRITED_HEIGHT)));
+                        }
+                        else if (lines[i][j] == 'O')
+                        {
+                            AddFloorO(new FloorO((short)(j * SpriteE.SPRITEE_WIDTH), (short)(i * SpriteE.SPRITEE_HEIGHT)));
+                        }
+                        else if (lines[i][j] == 'P')
+                        {
+                            AddFloorP(new FloorP((short)(j * SpriteF.SPRITEF_WIDTH), (short)(i * SpriteF.SPRITEF_HEIGHT)));
+                        }
+                        else if (lines[i][j] == 'Q')
+                        {
+                            AddFloorQ(new FloorQ((short)(j * SpriteG.SPRITEG_WIDTH), (short)(i * SpriteG.SPRITEG_HEIGHT)));
                         }
                         else if (lines[i][j] == 'a') // Walls on Level
                         {
@@ -341,9 +381,9 @@ namespace No_Colors
         {
             floorK.Add(r);
         }
-        public void AddFloorL(FloorL q)
+        public void AddFloorL(FloorL j)
         {
-            floorL.Add(q);
+            floorL.Add(j);
         }
         public void AddFloorM(FloorM k)
         {
@@ -361,10 +401,11 @@ namespace No_Colors
         {
             floorP.Add(h);
         }
-        public void AddFloorJ(FloorL j)
+        public void AddFloorQ(FloorQ wx)
         {
-            floorL.Add(j);
+            floorL.Add(wx);
         }
+
 
         public ushort CollidesCharacterAWith1_UPItem(MainCharacterA characterA)
         {

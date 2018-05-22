@@ -299,6 +299,9 @@
     <Content Include="levels\level5.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="levels\tolast.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="levels\levelend.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

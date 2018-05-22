@@ -4,7 +4,8 @@ using System.Linq;
 using Tao.Sdl;
 using System.IO;
 using System.Threading;
-
+using No_Colors;
+//V 0.07 - Miguel Pastor (Adding to Level and GameScreen Items [IN PROGRESS])
 //V 0.06 - Miguel Pastor (Deleted ChooseCharacter Method from here
 //                          and added to a class, timer IN PROGRESS)
 //V 0.05 - Miguel Pastor (Added PointScreen, Move of Main Character)
@@ -38,6 +39,8 @@ namespace No_Colors
         IntPtr textTimer, textSpace, textLives;
         bool top = false;
         int points;
+        bool back = false;
+                IntroScreen intro;
 
 
         public GameScreen(Hardware hardware) : base(hardware)
@@ -45,32 +48,66 @@ namespace No_Colors
             font = new Font("fonts/vga850.fon", 20);
             audio = new Audio(44100, 2, 4096);
             level = new Level("levels/level1.txt");
-            if (level = ("levels/level1.txt")) //Trying something #1
+            if (level == new Level ("levels/level1.txt")) //Trying something #1
             {
                 audio.AddMusic("audio/[Level1].mp3");
             }
-            else if (level = "levels/level2.txt") // #2
+            else if (level == new Level ("levels/level2.txt")) // #2
             {
                 audio.AddMusic("audio/[Level2].mp3");
             }
-            else if (level = "levels/level3.txt") // #3
+            else if (level == new Level ("levels/level3.txt")) // #3
             {
                 audio.AddMusic("audio/[Level3].mp3");
             }
-            else if (level = "levels/level4.txt") // #4
+            else if (level == new Level ("levels/level4.txt")) // #4
             {
                 audio.AddMusic("audio/[Level4].mp3");
             }
-            else if (level = "levels/level5.txt") // #5
+            else if (level == new Level ("levels/level5.txt")) // #5
             {
                 audio.AddMusic("audio/[Level5].mp3");
             }
-            else if (level = "levels/FinalLevel.txt") // #5
+            else if (level == new Level ("levels/levelend.txt")) // #FinalLevel
             {
                 audio.AddMusic("audio/[EndScreens].mp3");
                 audio.AddMusic("audio/[EndScreens2].mp3");
             }
             initTexts();
+        }
+
+        //Choosing Player
+
+        public int ChosenPlayer
+        {
+            get
+            {
+                return chosenPlayer;
+            }
+            set
+            {
+                if (value >= 1 && value <= 3)
+                {
+                    chosenPlayer = value;
+                    switch (value)
+                    {
+                        case 1:
+                            characterA = new Wario();
+                            break;
+                        case 2:
+                            characterB = new Waluigi();
+                            break;
+                        case 3:
+                            back = true;
+                            if (back == true)
+                            {
+                                back = false;
+                                MainController.intro.Show(); //[Back to the screen of before]
+                            }
+                            break;
+                    }
+                }
+            }
         }
 
         //Add Timer
@@ -274,7 +311,40 @@ namespace No_Colors
             }
             if (space)
             {
-                
+                if (characterA.Y < level.Width - SpriteCharacter.SPRITECA_WIDTH)
+                {
+                    characterA.Y += characterA.STEP_LENGTH;
+                    if (level.YMap1 < 0)
+                        level.YMap1 += characterA.STEP_LENGTH;
+                    if (level.YMap2 < 0)
+                        level.YMap2 += characterA.STEP_LENGTH;
+                    if (level.YMap3 < 0)
+                        level.YMap3 += characterA.STEP_LENGTH;
+                    if (level.YMap4 < 0)
+                        level.YMap4 += characterA.STEP_LENGTH;
+                    if (level.YMap5 < 0)
+                        level.YMap5 += characterA.STEP_LENGTH;
+                    if (level.YMap6 < 0)
+                        level.YMap6 += characterA.STEP_LENGTH;
+                }
+
+
+                if (characterB.Y < level.Width - SpriteCharacter.SPRITECA_WIDTH)
+                {
+                    characterB.Y -= characterB.STEP_LENGTH;
+                    if (level.YMap1 > 0)
+                        level.YMap1 -= characterB.STEP_LENGTH;
+                    if (level.YMap2 > 0)
+                        level.YMap2 -= characterB.STEP_LENGTH;
+                    if (level.YMap3 > 0)
+                        level.YMap3 -= characterB.STEP_LENGTH;
+                    if (level.YMap4 > 0)
+                        level.YMap4 -= characterB.STEP_LENGTH;
+                    if (level.YMap5 > 0)
+                        level.YMap5 -= characterB.STEP_LENGTH;
+                    if (level.YMap6 > 0)
+                        level.YMap6 -= characterB.STEP_LENGTH;
+                }
             }
         }
 
@@ -300,7 +370,7 @@ namespace No_Colors
                     hardware.DrawImage(characterA, (short)(currentSprite * CHARACTER_SPRITE_WIDTH), 0, CHARACTER_SPRITE_HEIGHT);
                     hardware.UpdateScreen();
                 }
-                else if(ChooseCharacterScreen.ChosenPlayer(value) = 2)
+                else if(ChooseCharacterScreen.GetChosenPlayer(chosenPlayer = 2))
                 {
                     hardware.DrawImage(characterB, (short)(currentSprite * CHARACTER_SPRITE_WIDTH), 0, CHARACTER_SPRITE_HEIGHT);
                     hardware.UpdateScreen();
@@ -374,11 +444,11 @@ namespace No_Colors
             DateTime timeStampFromClock = DateTime.Now;
             byte currentLevel = 1;
             bool gameOver = false;
-            if (characterA) //ChooseCharacter Character A
+            if (chosenPlayer == 1) //ChooseCharacter Character A
             {
                 characterA.MoveTo(level.Start.X, level.Start.Y);
             }
-            else if(characterB) //ChooseCharacter Character B
+            else if(chosenPlayer == 2) //ChooseCharacter Character B
             {
                 characterB.MoveTo(level.Start.X, level.Start.Y);
             }
@@ -390,7 +460,164 @@ namespace No_Colors
 
             do
             {
+                hardware.ClearScreen();
+                if (level == new Level("levels/level1.txt"))
+                {
+                    hardware.DrawSprite(level.BackgroundA, 0, 0, level.XMap1, level.YMap1, MainController.SCREEN_WIDTH, MainController.SCREEN_HEIGHT);
+                    foreach (WallA wallA in level.wallA)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(wallA.X - level.XMap1), (short)(wallA.Y - level.YMap1), wallA.SpriteX, wallA.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    foreach (WallB wallB in level.wallB)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(wallB.X - level.XMap1), (short)(wallB.Y - level.YMap1), wallB.SpriteX, wallB.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    foreach (FloorA floorA in level.floorA)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(floorA.X - level.XMap1), (short)(floorA.Y - level.YMap1), floorA.SpriteX, floorA.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    hardware.DrawSprite(SpriteItemsA.ItemsSheetA, (short)(level.ExitLevel.X - level.XMap1), (short)(level.ExitLevel.Y - level.YMap1), level.ExitLevel.SpriteX, level.ExitLevel.SpriteY, SpriteItemsA.SPRITEIA_WIDTH, SpriteItemsA.SPRITEIA_HEIGHT);
+                    foreach (Items i in level.items)
+                        hardware.DrawSprite(SpriteItemsA.ItemsSheetA, (short)(i.X - level.XMap1), (short)(i.Y - level.YMap1), i.SpriteX, i.SpriteY, SpriteItemsA.SPRITEIA_WIDTH, SpriteItemsA.SPRITEIA_HEIGHT);
+                }
+                else if (level == new Level("levels/level2.txt"))
+                {
+                    hardware.DrawSprite(level.BackgroundB, 0, 0, level.XMap2, level.YMap2, MainController.SCREEN_WIDTH, MainController.SCREEN_HEIGHT);
+                    foreach (WallA wallA in level.wallA)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(wallA.X - level.XMap2), (short)(wallA.Y - level.YMap2), wallA.SpriteX, wallA.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    foreach (WallB wallB in level.wallB)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(wallB.X - level.XMap2), (short)(wallB.Y - level.YMap2), wallB.SpriteX, wallB.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    hardware.DrawSprite(SpriteItemsA.ItemsSheetA, (short)(level.ExitLevel.X - level.XMap2), (short)(level.ExitLevel.Y - level.YMap2), level.ExitLevel.SpriteX, level.ExitLevel.SpriteY, SpriteItemsA.SPRITEIA_WIDTH, SpriteItemsA.SPRITEIA_HEIGHT);
+                    foreach (Items i in level.items)
+                        hardware.DrawSprite(SpriteItemsA.ItemsSheetA, (short)(i.X - level.XMap2), (short)(i.Y - level.YMap2), i.SpriteX, i.SpriteY, SpriteItemsA.SPRITEIA_WIDTH, SpriteItemsA.SPRITEIA_HEIGHT);
+                    foreach (FloorA floorA in level.floorA)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(floorA.X - level.XMap2), (short)(floorA.Y - level.YMap2), floorA.SpriteX, floorA.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                }
+                else if (level == new Level("levels/level3.txt"))
+                {
+                    hardware.DrawSprite(level.BackgroundB, 0, 0, level.XMap3, level.YMap3, MainController.SCREEN_WIDTH, MainController.SCREEN_HEIGHT);
+                    foreach (WallA wallA in level.wallA)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(wallA.X - level.XMap3), (short)(wallA.Y - level.YMap3), wallA.SpriteX, wallA.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    foreach (WallB wallB in level.wallB)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(wallB.X - level.XMap3), (short)(wallB.Y - level.YMap3), wallB.SpriteX, wallB.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    hardware.DrawSprite(SpriteItemsA.ItemsSheetA, (short)(level.ExitLevel.X - level.XMap3), (short)(level.ExitLevel.Y - level.YMap3), level.ExitLevel.SpriteX, level.ExitLevel.SpriteY, SpriteItemsA.SPRITEIA_WIDTH, SpriteItemsA.SPRITEIA_HEIGHT);
+                    foreach (Items i in level.items)
+                        hardware.DrawSprite(SpriteItemsA.ItemsSheetA, (short)(i.X - level.XMap3), (short)(i.Y - level.YMap3), i.SpriteX, i.SpriteY, SpriteItemsA.SPRITEIA_WIDTH, SpriteItemsA.SPRITEIA_HEIGHT);
+                    foreach (FloorA floorA in level.floorA)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(floorA.X - level.XMap3), (short)(floorA.Y - level.YMap3), floorA.SpriteX, floorA.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                }
+                else if (level == new Level("levels/level4.txt"))
+                {
+                    hardware.DrawSprite(level.BackgroundC, 0, 0, level.XMap4, level.YMap4, MainController.SCREEN_WIDTH, MainController.SCREEN_HEIGHT);
+                    foreach (WallA wallA in level.wallA)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(wallA.X - level.XMap4), (short)(wallA.Y - level.YMap4), wallA.SpriteX, wallA.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    foreach (WallB wallB in level.wallB)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(wallB.X - level.XMap4), (short)(wallB.Y - level.YMap4), wallB.SpriteX, wallB.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    hardware.DrawSprite(SpriteItemsA.ItemsSheetA, (short)(level.ExitLevel.X - level.XMap4), (short)(level.ExitLevel.Y - level.YMap4), level.ExitLevel.SpriteX, level.ExitLevel.SpriteY, SpriteItemsA.SPRITEIA_WIDTH, SpriteItemsA.SPRITEIA_HEIGHT);
+                    foreach (Items i in level.items)
+                        hardware.DrawSprite(SpriteItemsA.ItemsSheetA, (short)(i.X - level.XMap4), (short)(i.Y - level.YMap4), i.SpriteX, i.SpriteY, SpriteItemsA.SPRITEIA_WIDTH, SpriteItemsA.SPRITEIA_HEIGHT);
+                    foreach (FloorA floorA in level.floorA)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(floorA.X - level.XMap4), (short)(floorA.Y - level.YMap4), floorA.SpriteX, floorA.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                }
+                else if (level == new Level("levels/level5.txt"))
+                {
+                    hardware.DrawSprite(level.BackgroundE, 0, 0, level.XMap5, level.YMap5, MainController.SCREEN_WIDTH, MainController.SCREEN_HEIGHT);
+                    foreach (WallA wallA in level.wallA)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(wallA.X - level.XMap5), (short)(wallA.Y - level.YMap5), wallA.SpriteX, wallA.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    foreach (WallB wallB in level.wallB)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(wallB.X - level.XMap5), (short)(wallB.Y - level.YMap5), wallB.SpriteX, wallB.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    hardware.DrawSprite(SpriteItemsB.ItemsSheetB, (short)(level.ExitLevel.X - level.XMap5), (short)(level.ExitLevel.Y - level.YMap5), level.ExitLevel.SpriteX, level.ExitLevel.SpriteY, SpriteItemsB.SPRITEIB_WIDTH, SpriteItemsB.SPRITEIB_HEIGHT);
+                    foreach (Items i in level.items)
+                        hardware.DrawSprite(SpriteItemsA.ItemsSheetA, (short)(i.X - level.XMap5), (short)(i.Y - level.YMap5), i.SpriteX, i.SpriteY, SpriteItemsA.SPRITEIA_WIDTH, SpriteItemsA.SPRITEIA_HEIGHT);
+                    foreach (FloorA floorA in level.floorA)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(floorA.X - level.XMap5), (short)(floorA.Y - level.YMap5), floorA.SpriteX, floorA.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                }
+                else if (level == new Level("levels/tolast.txt"))
+                {
+                    hardware.DrawSprite(level.BackgroundE, 0, 0, level.XMap5, level.YMap5, MainController.SCREEN_WIDTH, MainController.SCREEN_HEIGHT);
+                    foreach (WallA wallA in level.wallA)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(wallA.X - level.XMap5), (short)(wallA.Y - level.YMap5), wallA.SpriteX, wallA.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    foreach (WallB wallB in level.wallB)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(wallB.X - level.XMap5), (short)(wallB.Y - level.YMap5), wallB.SpriteX, wallB.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    hardware.DrawSprite(SpriteItemsA.ItemsSheetA, (short)(level.ExitLevel.X - level.XMap5), (short)(level.ExitLevel.Y - level.YMap5), level.ExitLevel.SpriteX, level.ExitLevel.SpriteY, SpriteItemsA.SPRITEIA_WIDTH, SpriteItemsA.SPRITEIA_HEIGHT);
+                    foreach (Items i in level.items)
+                        hardware.DrawSprite(SpriteItemsA.ItemsSheetA, (short)(i.X - level.XMap5), (short)(i.Y - level.YMap5), i.SpriteX, i.SpriteY, SpriteItemsA.SPRITEIA_WIDTH, SpriteItemsA.SPRITEIA_HEIGHT);
+                    foreach (FloorA floorA in level.floorA)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(floorA.X - level.XMap5), (short)(floorA.Y - level.YMap5), floorA.SpriteX, floorA.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
 
+                }
+                else if (level == new Level("levels/levelend.txt"))
+                {
+                    hardware.DrawSprite(level.BackgroundD, 0, 0, level.XMap6, level.YMap6, MainController.SCREEN_WIDTH, MainController.SCREEN_HEIGHT);
+                    foreach (WallA wallA in level.wallA)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(wallA.X - level.XMap6), (short)(wallA.Y - level.YMap6), wallA.SpriteX, wallA.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    foreach (WallB wallB in level.wallB)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(wallB.X - level.XMap6), (short)(wallB.Y - level.YMap6), wallB.SpriteX, wallB.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    hardware.DrawSprite(SpriteItemsA.ItemsSheetA, (short)(level.ExitLevel.X - level.XMap6), (short)(level.ExitLevel.Y - level.YMap6), level.ExitLevel.SpriteX, level.ExitLevel.SpriteY, SpriteItemsA.SPRITEIA_WIDTH, SpriteItemsA.SPRITEIA_HEIGHT);
+                    foreach (Items i in level.items)
+                        hardware.DrawSprite(SpriteItemsA.ItemsSheetA, (short)(i.X - level.XMap6), (short)(i.Y - level.YMap6), i.SpriteX, i.SpriteY, SpriteItemsA.SPRITEIA_WIDTH, SpriteItemsA.SPRITEIA_HEIGHT);
+                    foreach (FloorA floorA in level.floorA)
+                        hardware.DrawSprite(SpriteA.TilesSheetA, (short)(floorA.X - level.XMap6), (short)(floorA.Y - level.YMap6), floorA.SpriteX, floorA.SpriteY, SpriteA.SPRITEA_WIDTH, SpriteA.SPRITEA_HEIGHT);
+                    foreach (FloorB floorB in level.floorB)
+                        hardware.DrawSprite(SpriteB.TilesSheetB, (short)(floorB.X - level.XMap6), (short)(floorB.Y - level.YMap6), floorB.SpriteX, floorB.SpriteY, SpriteB.SPRITEB_WIDTH, SpriteB.SPRITEB_HEIGHT);
+                    foreach (FloorC floorC in level.floorC)
+                        hardware.DrawSprite(SpriteC.TilesSheetC, (short)(floorC.X - level.XMap6), (short)(floorC.Y - level.YMap6), floorC.SpriteX, floorC.SpriteY, SpriteC.SPRITEC_WIDTH, SpriteC.SPRITEC_HEIGHT);
+                    foreach (FloorD floorD in level.floorD)
+                        hardware.DrawSprite(SpriteD.TilesSheetD, (short)(floorD.X - level.XMap6), (short)(floorD.Y - level.YMap6), floorD.SpriteX, floorD.SpriteY, SpriteD.SPRITED_WIDTH, SpriteD.SPRITED_HEIGHT);
+                    foreach (FloorE floorE in level.floorE)
+                        hardware.DrawSprite(SpriteE.TilesSheetE, (short)(floorE.X - level.XMap6), (short)(floorE.Y - level.YMap6), floorE.SpriteX, floorE.SpriteY, SpriteE.SPRITEE_WIDTH, SpriteE.SPRITEE_HEIGHT);
+                    foreach (FloorF floorF in level.floorF)
+                        hardware.DrawSprite(SpriteF.TilesSheetF, (short)(floorF.X - level.XMap6), (short)(floorF.Y - level.YMap6), floorF.SpriteX, floorF.SpriteY, SpriteF.SPRITEF_WIDTH, SpriteF.SPRITEF_HEIGHT);
+                    foreach (FloorG floorG in level.floorG)
+                        hardware.DrawSprite(SpriteG.TilesSheetG, (short)(floorG.X - level.XMap6), (short)(floorG.Y - level.YMap6), floorG.SpriteX, floorG.SpriteY, SpriteG.SPRITEG_WIDTH, SpriteG.SPRITEG_HEIGHT);
+                }
+
+                if (chosenPlayer == 1)
+                    {
+                        oldX = characterA.X;
+                        oldY = characterA.Y;
+                    }
+                    else if (chosenPlayer == 2)
+                    {
+                        oldX = characterB.X;
+                        oldY = characterB.Y;
+                    }
+
+                //Level One Map
+                if(level == new Level ("levels/level1.txt"))
+                {
+                    oldXMap = level.XMap1;
+                    oldYMap = level.YMap1;
+                }
+                //Level Two Map
+                else if (level == new Level("levels/level2.txt"))
+                {
+                    oldXMap = level.XMap2;
+                    oldYMap = level.YMap2;
+                }
+                //Level Three Map
+                else if (level == new Level("levels/level3.txt"))
+                {
+                    oldXMap = level.XMap3;
+                    oldYMap = level.YMap3;
+                }
+                //Level Four Map
+                else if (level == new Level("levels/level4.txt"))
+                {
+                    oldXMap = level.XMap4;
+                    oldYMap = level.YMap4;
+                }
+                //Level Five Map
+                else if (level == new Level("levels/level5.txt"))
+                {
+                    oldXMap = level.XMap5;
+                    oldYMap = level.YMap5;
+                }
+                else if (level == new Level("levels/tolast.txt"))
+                {
+                    oldXMap = level.XMap5;
+                    oldYMap = level.YMap5;
+                }
+                //Final Level Map
+                else if (level == new Level("levels/levelend.txt"))
+                {
+                    oldXMap = level.XMap6;
+                    oldYMap = level.YMap6;
+                }
             }
             while (!gameOver && !hardware.IsKPressed(Hardware.KEY_P));
             audio.StopMusic();

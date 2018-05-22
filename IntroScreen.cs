@@ -84,7 +84,7 @@ namespace No_Colors
                     switch (value)
                     {
                         case 1:
-                            choseCharacter = new ChooseCharacterScreen();
+                            choseCharacter = new ChooseCharacterScreen(hardware);
                             break;
                         case 2:
                             help = new HelpScreen();
