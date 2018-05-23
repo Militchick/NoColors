@@ -26,7 +26,7 @@ namespace No_Colors
             exit = false;
             audio = new Audio(44100, 2, 4096);
             audio.AddMusic("audio/[IntroScreen].mp3");
-            imgintro = new Images("imgs/IntroScreen.png", 1200, 740);
+            imgintro = new Images("images/IntroScreen.png", 1200, 740);
             imgintro.MoveTo(0, 0);
         }
 
@@ -87,10 +87,10 @@ namespace No_Colors
                             choseCharacter = new ChooseCharacterScreen(hardware);
                             break;
                         case 2:
-                            help = new HelpScreen();
+                            help = new HelpScreen(hardware);
                             break;
                         case 3:
-                            credits = new CreditsScreen();
+                            credits = new CreditsScreen(hardware);
                             break;
                         case 4:
                             GetExit();

@@ -5,6 +5,8 @@ using Tao.Sdl;
 using System.IO;
 using System.Threading;
 using No_Colors;
+
+//V 0.08 - Miguel Pastor (Added a First Version of Pause Submenu)
 //V 0.07 - Miguel Pastor (Adding to Level and GameScreen Items [IN PROGRESS])
 //V 0.06 - Miguel Pastor (Deleted ChooseCharacter Method from here
 //                          and added to a class, timer IN PROGRESS)
@@ -36,11 +38,11 @@ namespace No_Colors
         int chosenPlayer;
         Font font;
         Audio audio;
-        IntPtr textTimer, textSpace, textLives;
+        IntPtr textTimer, textSpace, textLives, textPause;
         bool top = false;
         int points;
         bool back = false;
-                IntroScreen intro;
+        IntroScreen intro;
 
 
         public GameScreen(Hardware hardware) : base(hardware)
@@ -115,6 +117,7 @@ namespace No_Colors
         public void DecreaseTime(Object o)
         {
             Sdl.SDL_Color black = new Sdl.SDL_Color(255, 255, 255);
+            Sdl.SDL_Color white = new Sdl.SDL_Color(0, 0, 0);
             if (characterA.Lives > 0)
             {
                 characterA.Time--;
@@ -143,7 +146,7 @@ namespace No_Colors
                 imgGameOver.MoveTo(0, 0);
                 hardware.DrawImage(imgGameOver);
                 hardware.UpdateScreen();
-                textSpace = SdlTtf.TTF_RenderText_Solid(font.GetFontType(), "PRESS SPACE TO CONTINUE...", black);
+                textSpace = SdlTtf.TTF_RenderText_Solid(font.GetFontType(), "PRESS SPACE TO CONTINUE...", white);
                 while (hardware.KeyPress() != Hardware.KEY_SPACE) ;
             }
             
@@ -618,15 +621,36 @@ namespace No_Colors
                     oldXMap = level.XMap6;
                     oldYMap = level.YMap6;
                 }
+
+                //Pause Menu First Version
+
+                if (hardware.IsKPressed(Hardware.KEY_P))
+                {
+                    Timer storet = timer;
+                    timer.Dispose();
+                    audio.StopMusic();
+                    hardware.ClearScreen();
+                    Sdl.SDL_Color white = new Sdl.SDL_Color(0, 0, 0);
+                    textPause = SdlTtf.TTF_RenderText_Solid(font.GetFontType(), "PAUSE", white);
+                    textPause = SdlTtf.TTF_RenderText_Solid(font.GetFontType(), "Continue [C]", white);
+                    textPause = SdlTtf.TTF_RenderText_Solid(font.GetFontType(), "Quit [Q]", white);
+                    
+                    char pause = Convert.ToChar(Console.ReadLine().ToLower());
+
+                    switch (pause)
+                    {
+                        case 'c': timer = storet; break; //Nothing because game continues
+                        case 'q': intro.GetExit(); break; //Call GetExit
+                    }
+                }
             }
-            while (!gameOver && !hardware.IsKPressed(Hardware.KEY_P));
+            while (!gameOver);
             audio.StopMusic();
             timer.Dispose();
+
         }
 
         //TODO Move items and give items to every item and enemies
-
-        //TODO Add Pause Class Here
 
         //TODO Add LoseLives Class and GameOver Class inside the "kill enemies comment" more or less
     }
