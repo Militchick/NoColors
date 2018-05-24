@@ -20,6 +20,7 @@ namespace No_Colors
         float x, y;
         short imageWidth, imageHeight;
         IntPtr image;
+        private IntPtr internalPointer;
 
         public Images(string fileName, short width, short height)
         {
@@ -81,6 +82,11 @@ namespace No_Colors
             return (this.CollidesWith(img, this.GetImageWidth(), this.GetImageHeight(),
                 img.GetImageWidth(), img.GetImageHeight()) &&
                 img.GetY() >= this.GetY() + this.GetImageHeight() * 0.9);
+        }
+
+        public IntPtr GetPointer()
+        {
+            return internalPointer;
         }
     }
 }

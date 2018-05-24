@@ -32,7 +32,8 @@ namespace No_Colors
 
         public override void Show()
         {
-            bool escPressed = false, spacePressed = false; //Only for Debug
+            bool escPressed = false; //Only for Debug
+            bool spacePressed = false; 
             hardware.DrawImage(imgintro);
             hardware.UpdateScreen();
             audio.PlayMusic(0, -1);
@@ -45,7 +46,7 @@ namespace No_Colors
                     escPressed = true;
                     exit = true;
                 }
-                else if (keyPressed == Hardware.KEY_SPACE)
+                else if (keyPressed == Hardware.KEY_SPC)
                 {
                     spacePressed = true;
                     exit = false;
@@ -63,12 +64,6 @@ namespace No_Colors
         {
             return exit;
         }
-        
-        //TODO Play the Game -> (To the ChooseCharacterScreen Class)
-
-        //TODO Help -> (To the HelpScreen Class)
-
-        //TODO Credits -> (To the CreditsScreen Class)
 
         public int ChoseMenu
         {
@@ -83,15 +78,19 @@ namespace No_Colors
                     choseMenu = value;
                     switch (value)
                     {
+                        //Play the Game -> (To the ChooseCharacterScreen Class)
                         case 1:
                             choseCharacter = new ChooseCharacterScreen(hardware);
                             break;
+                        //Help -> (To the HelpScreen Class)
                         case 2:
                             help = new HelpScreen(hardware);
                             break;
+                        //Credits -> (To the CreditsScreen Class)
                         case 3:
                             credits = new CreditsScreen(hardware);
                             break;
+                        //Exit -> (Quit The Game)
                         case 4:
                             GetExit();
                             break;

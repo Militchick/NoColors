@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Tao.Sdl;
+using System.Threading;
 
 //V 0.05 - Miguel Pastor (KeyEvents)
 //V 0.02 - Miguel Pastor (Key Inputs, Arguments, Constructor, 
@@ -20,7 +21,7 @@ namespace No_Colors
         public const int KEY_DOWN = Sdl.SDLK_DOWN;
         public const int KEY_LEFT = Sdl.SDLK_LEFT;
         public const int KEY_RIGHT = Sdl.SDLK_RIGHT;
-        public const int KEY_SPACE = Sdl.SDLK_SPACE;
+        public const int KEY_SPC = Sdl.SDLK_SPACE;
         public const int KEY_P = Sdl.SDLK_p;
 
         //All arguments to the Hardware Constructor and Destructor
@@ -28,6 +29,9 @@ namespace No_Colors
         short screenWidth;
         short colorDepth;
         IntPtr screen;
+        static short width, height;
+        static short startX, startY;
+        static IntPtr hiddenScreen;
 
         public Hardware(short width, short height, short depth, bool fullScreen)
         {
@@ -64,6 +68,9 @@ namespace No_Colors
             Sdl.SDL_BlitSurface(img.ImagePtr, ref source, screen, ref target);
         }
 
+        // Draws a sprite from a sprite sheet in 
+        // the specified X and Y position of the screen
+
         public void DrawImage(Images images, short x, short y, short width, short height)
         {
             Sdl.SDL_Rect src = new Sdl.SDL_Rect(x, y, width, height);
@@ -71,9 +78,6 @@ namespace No_Colors
                 width, height);
             Sdl.SDL_BlitSurface(images.GetImage(), ref src, screen, ref dest);
         }
-
-        // Draws a sprite from a sprite sheet in 
-        // the specified X and Y position of the screen
 
         public void DrawSprite(Images image, short xScreen, short yScreen, 
             short x, short y, short width, short height)
@@ -152,5 +156,85 @@ namespace No_Colors
                 }
             }
         }
+
+        //Credits Hardware
+
+        public static void Pause(int milisegundos)
+        {
+            Thread.Sleep(milisegundos);
+        }
+
+        public static void DrawHiddenImage(Images image, int x, int y)
+        {
+            drawHiddenImage(image.GetPointer(), x + startX, y + startY);
+        }
+
+        public static void ShowHiddenScreen()
+        {
+            Sdl.SDL_Flip(hiddenScreen);
+        }
+
+        public static void WriteHiddenText(string txt,
+    short x, short y, byte r, byte g, byte b, Font f)
+        {
+            Sdl.SDL_Color color = new Sdl.SDL_Color(r, g, b);
+            IntPtr textoComoImagen = SdlTtf.TTF_RenderText_Solid(
+                f.GetFontType(), txt, color);
+            if (textoComoImagen == IntPtr.Zero)
+                Environment.Exit(5);
+
+            Sdl.SDL_Rect origen = new Sdl.SDL_Rect(0, 0, width, height);
+            Sdl.SDL_Rect dest = new Sdl.SDL_Rect(
+                (short)(x + startX), (short)(y + startY),
+                width, height);
+
+            Sdl.SDL_BlitSurface(textoComoImagen, ref origen,
+                hiddenScreen, ref dest);
+
+            Sdl.SDL_FreeSurface(textoComoImagen);
+        }
+
+        private static void drawHiddenImage(IntPtr image, int x, int y)
+        {
+            Sdl.SDL_Rect origin = new Sdl.SDL_Rect(0, 0, width, height);
+            Sdl.SDL_Rect dest = new Sdl.SDL_Rect((short)x, (short)y,
+                width, height);
+            Sdl.SDL_BlitSurface(image, ref origin, hiddenScreen, ref dest);
+        }
+
+        public static int GetWidth()
+        {
+            return width;
+        }
+
+        public static int GetHeight()
+        {
+            return height;
+        }
+
+        // Scroll Methods
+/*
+        public static void ResetScroll()
+        {
+            startX = startY = 0;
+        }
+
+        public static void ScrollTo(short newStartX, short newStartY)
+        {
+            startX = newStartX;
+            startY = newStartY;
+        }
+
+        public static void ScrollHorizontally(short xDespl)
+        {
+            startX += xDespl;
+        }
+
+        public static void ScrollVertically(short yDespl)
+        {
+            startY += yDespl;
+        }
+
+    */
     }
 }

@@ -40,12 +40,14 @@ namespace No_Colors
             do
             {
                 int keyPressed = hardware.KeyPress();
-                if (keyPressed == Hardware.KEY_SPACE)
+                if (keyPressed == Hardware.KEY_SPC)
                 {
                     back = true;
+                    intro.Show();
                 }
             }
             while (back == true);
+
             back = false;
         }
     }

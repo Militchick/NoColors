@@ -225,6 +225,9 @@
     <Content Include="audio\[PointScreen].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\backCredits.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="images\Background_grey.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

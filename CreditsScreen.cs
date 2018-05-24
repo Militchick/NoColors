@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Tao.Sdl;
 
+//V 0.09 - Miguel Pastor (CreditsScreen)
 //V 0.08 - Miguel Pastor (Almost All CreditsScreen)
 //V 0.01 - Miguel Pastor (Empty Skeleton)
 
@@ -10,29 +11,50 @@ namespace No_Colors
 {
     class CreditsScreen : Screen
     {
-
+        Audio audio;
         Images backCredits;
         Font fontm, fontb;
+        IntroScreen intro;
 
-        public CreditsScreen(bool updating)
+        public CreditsScreen(Hardware hardware) : base(hardware)
         {
-            if(updating)
-            {
-                backCredits = new Images("credits/imgs/backCredits.gif",1200, 740);
-                fontm = new Font("fonts/vga850.fon", 18);
-                fontb = new Font("fonts/vga850.fon", 24);
-            }
-            else
-            {
-                backCredits = new Images("credits/imgsupdate/backCredits.gif", 1200, 740);
-                fontm = new Font("fonts/vga850.fon", 18);
-                fontb = new Font("fonts/vga850.fon", 24);
-            }
+            audio = new Audio(44100, 2, 4096);
+            audio.AddMusic("audio/[CreditsScreen].mp3");
+            backCredits = new Images("images/backCredits.gif", 1200, 740);
+            fontm = new Font("fonts/vga850.fon", 18);
+            fontb = new Font("fonts/vga850.fon", 24);
+            backCredits.MoveTo(0, 0);
+
         }
 
         //Contains a Fixed Image with names of all involved on the proyect(or all names in class)
 
-        protected string[] names = { "Original game: Miguel Pastor",
+        protected string[] bignames = { "Original game: Miguel Pastor",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "Project Boss: Nacho Cabanes" };
+
+        protected string[] names = { //"Original game: Miguel Pastor",
         " ",
         "Brandon Blasco",
         "Javier Cases",
@@ -54,8 +76,8 @@ namespace No_Colors
         "Luis Selles",
         "Victor Tebar",
         "Jose Vilaplana",
-        "  ",
-        "Project Boss: Nacho Cabanes" };
+        "  " };
+        //"Project Boss: Nacho Cabanes" };
 
         // Some Scroll
         protected short yText = 40;
@@ -70,31 +92,41 @@ namespace No_Colors
                 nextName = false;
 
                 hardware.ClearScreen();
-                hardware.DrawHiddenImage(backCredits, 0, 0); //TODO Implement All Hardware Methods
-                hardware.WriteHiddenText("Credits", 512, 10, 0x00, 0x00, 0x00, fontb);
+                Hardware.DrawHiddenImage(backCredits, 0, 0);
+                Hardware.WriteHiddenText("Credits", 512, 10, 0x00, 0x00, 0x00, fontb);
                 yText = 40;
                 for(int i = 0; i < names.Length; i++)
                 {
-                    hardware.WrittenHiddenText(names[i], 500, (short)(startY + yText), 0x00, 0x00, 0x00, fontm);
+                    for (int j = 0; j < names.Length; j++)
+                    {
+                        Hardware.WriteHiddenText(bignames[j], 500, (short)(startY + yText), 0x00, 0x00, 0x00, fontb);
+                        yText += 22;
+                    }
+                    Hardware.WriteHiddenText(names[i], 500, (short)(startY + yText), 0x00, 0x00, 0x00, fontm);
                     yText += 22;
                 }
 
-                hardware.WriteHiddenText("PRESS SPACE TO GO BACK...", 10, (short)(yText + 15), 0x00, 0x00, 0x00, fontm);
-                hardware.ShowHiddenScreen();
+                //That image also will have a message at the end saying "Press Space to Go Back"
 
-                hardware.Pause(20);
-                if (hardware.KeyPressed(hardware.KEY_SPC))
+                Hardware.WriteHiddenText("PRESS SPACE TO GO BACK...", 10, (short)(yText + 15), 0x00, 0x00, 0x00, fontm);
+                Hardware.ShowHiddenScreen();
+
+                Hardware.Pause(20);
+                if (hardware.IsKPressed(Hardware.KEY_SPC))
                     finished = true;
                 if (startY < -800)
                     finished = true;
-
+                
                 startY -= 2;
+
+                if((finished == true) || (nextName = false))
+                {
+                    audio.StopMusic();
+                }
             }
         }
 
         //TODO [Fixed Image]
-
-        //That image also will have a message at the end saying "Press Space to Go Back"
 
     }
 }

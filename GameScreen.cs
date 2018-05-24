@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using No_Colors;
 
+//V 0.09 - Miguel Pastor (Fixed some errors)
 //V 0.08 - Miguel Pastor (Added a First Version of Pause Submenu)
 //V 0.07 - Miguel Pastor (Adding to Level and GameScreen Items [IN PROGRESS])
 //V 0.06 - Miguel Pastor (Deleted ChooseCharacter Method from here
@@ -40,10 +41,16 @@ namespace No_Colors
         Audio audio;
         IntPtr textTimer, textSpace, textLives, textPause;
         bool top = false;
-        int points;
         bool back = false;
         IntroScreen intro;
+        int points;
 
+        public class addhiscore
+        {
+            public string name { get; set; }
+            public int points { get; set; }
+            public int last { get; set; }
+        }
 
         public GameScreen(Hardware hardware) : base(hardware)
         {
@@ -104,7 +111,7 @@ namespace No_Colors
                             if (back == true)
                             {
                                 back = false;
-                                MainController.intro.Show(); //[Back to the screen of before]
+                                intro.Show(); //[Back to the screen of before]
                             }
                             break;
                     }
@@ -138,7 +145,7 @@ namespace No_Colors
                 if(top == true) //Bool to activate/deactivate de HiScore Screen
                 {
                     HiScore();
-                    while (hardware.KeyPress() != Hardware.KEY_SPACE) ;
+                    while (hardware.KeyPress() != Hardware.KEY_SPC) ;
                 }
 
                 Images imgGameOver;
@@ -147,14 +154,14 @@ namespace No_Colors
                 hardware.DrawImage(imgGameOver);
                 hardware.UpdateScreen();
                 textSpace = SdlTtf.TTF_RenderText_Solid(font.GetFontType(), "PRESS SPACE TO CONTINUE...", white);
-                while (hardware.KeyPress() != Hardware.KEY_SPACE) ;
+                while (hardware.KeyPress() != Hardware.KEY_SPC) ;
             }
             
         }
 
         private void tick(ref DateTime timestock)
         {
-            if ((DateTime.Now - timestock).TotalMilliseconds > DAMAGE_INTERVAL)
+            if ((DateTime.Now - timestock).TotalMilliseconds > 10)
             {
                 timestock = DateTime.Now;
             }
@@ -183,11 +190,34 @@ namespace No_Colors
                     int ten = 10;
 
                     do
-                    {
+                    {;
+                        addhiscore num = new addhiscore();
                         line = input.ReadLine();
+                        string[] info = line.Split(':');
+                        num.name = info[0];
+                        info[0] = Console.ReadLine();
+                        num.points = int.Parse(info[1]);
+                        hardware.ClearScreen();
+
                         if (line != null)
                         {
-                            output.WriteLine(line.ToUpper());
+
+                            info = line.Split(':');
+                            num.name = info[0];
+                            num.points = int.Parse(info[1]);
+
+                            while (line != null)
+                            {
+                                num.last = int.Parse(info[2]);
+                                if (num.points > num.last)
+                                {
+                                    output.WriteLine(num.name, ":", num.points);
+                                }
+
+                                output.WriteLine(line.ToUpper());
+                            }
+                            
+
                             ten--;
                         }
                     }
@@ -236,7 +266,7 @@ namespace No_Colors
         {
             bool left = hardware.IsKPressed(Hardware.KEY_LEFT);
             bool right = hardware.IsKPressed(Hardware.KEY_RIGHT);
-            bool space = hardware.IsKPressed(Hardware.KEY_SPACE);
+            bool space = hardware.IsKPressed(Hardware.KEY_SPC);
 
             if (left)
             {
@@ -351,7 +381,7 @@ namespace No_Colors
             }
         }
 
-        static void Main(string[]args)
+        public void Main(string[]args)
         {
             Hardware hardware = new Hardware(1200, 740, 24, false);
 
@@ -367,15 +397,15 @@ namespace No_Colors
             {
                 // Draw all
                 hardware.ClearScreen();
-                if(ChooseCharacterScreen.ChosenPlayer(value) = 1) //Si se ha escogido el primer personaje
+                if(chosenPlayer == 1) //Si se ha escogido el primer personaje
                 {
                     //Hardware and Code to Fix it
-                    hardware.DrawImage(characterA, (short)(currentSprite * CHARACTER_SPRITE_WIDTH), 0, CHARACTER_SPRITE_HEIGHT);
+                    hardware.DrawImage(characterA, 0, 0, (short)(currentSprite * CHARACTER_SPRITE_WIDTH), CHARACTER_SPRITE_HEIGHT);
                     hardware.UpdateScreen();
                 }
-                else if(ChooseCharacterScreen.GetChosenPlayer(chosenPlayer = 2))
+                else if(chosenPlayer == 2)
                 {
-                    hardware.DrawImage(characterB, (short)(currentSprite * CHARACTER_SPRITE_WIDTH), 0, CHARACTER_SPRITE_HEIGHT);
+                    hardware.DrawImage(characterB, 0, 0, (short)(currentSprite * CHARACTER_SPRITE_WIDTH), CHARACTER_SPRITE_HEIGHT);
                     hardware.UpdateScreen();
                 }
 
@@ -395,7 +425,7 @@ namespace No_Colors
                     if (verticalSpeed > MAX_VERTICAL_SPEED)
                         verticalSpeed = MAX_VERTICAL_SPEED;
                 }
-                else if(key == Hardware.KEY_SPACE)
+                else if(key == Hardware.KEY_SPC)
                 {
                     isJumping = true;
                     verticalSpeed = -1 * MAX_VERTICAL_SPEED;

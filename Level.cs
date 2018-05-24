@@ -401,9 +401,9 @@ namespace No_Colors
         {
             floorP.Add(h);
         }
-        public void AddFloorQ(FloorQ wx)
+        public void AddFloorQ(FloorQ f)
         {
-            floorL.Add(wx);
+            floorQ.Add(f);
         }
 
 

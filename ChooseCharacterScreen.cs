@@ -12,12 +12,13 @@ namespace No_Colors
 {
     class ChooseCharacterScreen : Screen
     {
+        //Contains a Fixed Image with Both Main Characters and the Words "Choose Character" Below
 
-        Images imgchoose;
+        Images imgchoose, imgLHand, imgLNoHand, imgRHand,imgRNoHand;
         Audio audio;
         MainCharacterA characterA;
         MainCharacterB characterB;
-        int chosenPlayer;
+        int chosenPlayer = 1;
         IntPtr textChoose, textBack;
 
         //Contains initial screen (Image) with a submenu where you can choose:
@@ -27,12 +28,18 @@ namespace No_Colors
             audio = new Audio(44100, 2, 4096);
             audio.AddMusic("audio/[ChooseCharacterScreen].mp3");
             imgchoose = new Images("imgs/ChooseCharacter.gif", 1200, 740);
+            imgLHand = new Images("imgs/left_hand_light.gif", 144, 144);
+            imgLNoHand = new Images("imgs/left_hand_dark.gif", 144, 144);
+            imgRHand = new Images("imgs/right_hand_light.gif", 144, 144);
+            imgRNoHand = new Images("imgs/right_hand_dark.gif", 144, 144);
             imgchoose.MoveTo(0, 0);
+            //TODO Coordinates X, Y Hands
         }
 
         public override void Show()
         {
-            bool escPressed = false, spacePressed = false; //Only for Debug
+            //bool escPressed = false; [Only for Debug]
+            bool spacePressed = false; 
             hardware.DrawImage(imgchoose);
             hardware.UpdateScreen();
             audio.PlayMusic(0, -1);
@@ -52,10 +59,6 @@ namespace No_Colors
         {
             return chosenPlayer;
         }
-
-        //Contains a Fixed Image with Both Main Characters and the Words "Choose Character" Below
-
-
 
         //TODO And a Hand Image to Choose Character (With a Shadow Hand on the Character Un-selected)
     }
