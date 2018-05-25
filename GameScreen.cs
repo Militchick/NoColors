@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using No_Colors;
 
+//V 0.10 - Miguel Pastor (Trying to fix "Image not found" error)
 //V 0.09 - Miguel Pastor (Fixed some errors)
 //V 0.08 - Miguel Pastor (Added a First Version of Pause Submenu)
 //V 0.07 - Miguel Pastor (Adding to Level and GameScreen Items [IN PROGRESS])
@@ -137,9 +138,19 @@ namespace No_Colors
             }
             else
             {
-                if((HiScore()) > points) //TODO Convert numbers of HiScore to Int
+                string line;
+                StreamReader input = File.OpenText("hiscore.dat");
+                line = input.ReadLine();
+                string[] info = line.Split(':');
+                addhiscore num = new addhiscore();
+                info = line.Split(':');
+                num.name = info[0];
+                num.points = int.Parse(info[1]);
+
+                if (points > num.points)
                 {
                     top = true;
+                    input.Close();
                 }
 
                 if(top == true) //Bool to activate/deactivate de HiScore Screen
@@ -148,8 +159,8 @@ namespace No_Colors
                     while (hardware.KeyPress() != Hardware.KEY_SPC) ;
                 }
 
-                Images imgGameOver;
-                imgGameOver = new Images("images/GameOverImage.png", 1200, 740);
+                Image imgGameOver;
+                imgGameOver = new Image("images/GameOverImage.png", 1200, 740);
                 imgGameOver.MoveTo(0, 0);
                 hardware.DrawImage(imgGameOver);
                 hardware.UpdateScreen();
@@ -174,6 +185,14 @@ namespace No_Colors
         private void HiScore()
         {
             List<GameScreen> Top10 = new List<GameScreen>();
+            Image imgHiscore;
+
+            audio.AddMusic("audio/[PointScreen].mp3");
+            imgHiscore = new Image("images/backHiscore.gif", 1200, 940);
+            imgHiscore.MoveTo(0, 0);
+            hardware.DrawImage(imgHiscore);
+            hardware.UpdateScreen();
+            audio.PlayMusic(0, -1);
 
             if (!File.Exists("hiscore.dat"))
             {
@@ -188,6 +207,7 @@ namespace No_Colors
                     StreamReader input = File.OpenText("hiscore.dat");
                     string line;
                     int ten = 10;
+
 
                     do
                     {;
@@ -239,6 +259,8 @@ namespace No_Colors
                     throw e;
                 }
             }
+
+            audio.StopMusic();
         }
 
         private void initTexts()
@@ -388,9 +410,9 @@ namespace No_Colors
             int key = 0, spriteCount = 0, currentSprite = 1;
             bool left, right, isFalling = false, isJumping = false;
             float verticalSpeed = 0.0f, horizontalSpeed = 0.0f;
-            Images characterA = new Images("images/MC.gif", CHARACTER_SPRITE_WIDTH, CHARACTER_SPRITE_HEIGHT);
-            Images characterB = new Images("images/MC.gif", CHARACTER_SPRITE_WIDTH, CHARACTER_SPRITE_HEIGHT);
-            List<Images> bricks = new List<Images>();
+            Image characterA = new Image("images/MC.gif", CHARACTER_SPRITE_WIDTH, CHARACTER_SPRITE_HEIGHT);
+            Image characterB = new Image("images/MC.gif", CHARACTER_SPRITE_WIDTH, CHARACTER_SPRITE_HEIGHT);
+            List<Image> bricks = new List<Image>();
             characterA.MoveTo(0, 320 - CHARACTER_SPRITE_HEIGHT);
             characterB.MoveTo(0, 320 - CHARACTER_SPRITE_HEIGHT);
             while(key != Hardware.KEY_ESC) //While Debug

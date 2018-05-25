@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Tao.Sdl;
 
+//V 0.10 - Miguel Pastor (Trying to fix "Image not found" error)
 //V 0.02 - Miguel Pastor (Read Images)
 //V 0.01 - Miguel Pastor (Empty Skeleton)
 
 namespace No_Colors
 {
-    class Images
+    class Image
     {
         //Contain all information about the images and sprites in the game
 
@@ -18,11 +19,9 @@ namespace No_Colors
         public short ImageHeight { get; set; }
         public IntPtr ImagePtr { get; set; }
         float x, y;
-        short imageWidth, imageHeight;
-        IntPtr image;
         private IntPtr internalPointer;
 
-        public Images(string fileName, short width, short height)
+        public Image(string fileName, short width, short height)
         {
             ImagePtr = SdlImage.IMG_Load(fileName);
             if (ImagePtr == IntPtr.Zero)
@@ -63,10 +62,10 @@ namespace No_Colors
 
         public IntPtr GetImage()
         {
-            return image;
+            return ImagePtr;
         }
 
-        public bool CollidesWith(Images img, short w1, short h1, short w2, short h2)
+        public bool CollidesWith(Image img, short w1, short h1, short w2, short h2)
         {
             return (x + w1 >= img.x && x <= img.x + w2 &&
                     y + h1 >= img.y && y <= img.y + h2);
@@ -77,7 +76,7 @@ namespace No_Colors
             this.y++;
         }
 
-        public bool IsOver(Images img)
+        public bool IsOver(Image img)
         {
             return (this.CollidesWith(img, this.GetImageWidth(), this.GetImageHeight(),
                 img.GetImageWidth(), img.GetImageHeight()) &&

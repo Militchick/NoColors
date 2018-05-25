@@ -10,7 +10,7 @@ namespace No_Colors
     {
         //Base Class To Show All Images and Sprites
 
-        public static Images CharacterSheet = new Images("images/MC.gif", 646, 241);
+        public static Image CharacterSheet = new Image("images/MC.gif", 646, 241);
 
         public const short SPRITECA_WIDTH = 27; 
         public const short SPRITECA_HEIGHT = 35;
@@ -29,15 +29,29 @@ namespace No_Colors
 
         //Collisions (Study to Only Collisions from the top on other classes)
 
-        public bool CollidesWith(SpriteCharacter sp)
+        public bool CollidesWith(SpriteItemsA sp)
         {
-            return (X + SpriteCharacter.SPRITECA_WIDTH > sp.X && X < sp.X + SpriteCharacter.SPRITECA_WIDTH &&
-                    Y + SpriteCharacter.SPRITECA_HEIGHT > sp.Y && Y < sp.Y + SpriteCharacter.SPRITECA_HEIGHT);
+            return (X + SpriteItemsA.SPRITEIA_WIDTH > sp.X && X < sp.X + SpriteItemsA.SPRITEIA_WIDTH &&
+                    Y + SpriteItemsA.SPRITEIA_HEIGHT > sp.Y && Y < sp.Y + SpriteItemsA.SPRITEIA_HEIGHT);
         }
 
-        public bool CollidesWith(List<SpriteCharacter> sprites)
+        public bool CollidesWith(List<SpriteItemsA> sprites)
         {
-            foreach (SpriteCharacter sp in sprites)
+            foreach (SpriteItemsA sp in sprites)
+                if (this.CollidesWith(sp))
+                    return true;
+            return false;
+        }
+
+        public bool CollidesWith(SpriteItemsB sp)
+        {
+            return (X + SpriteItemsB.SPRITEIB_WIDTH > sp.X && X < sp.X + SpriteItemsB.SPRITEIB_WIDTH &&
+                    Y + SpriteItemsB.SPRITEIB_HEIGHT > sp.Y && Y < sp.Y + SpriteItemsB.SPRITEIB_HEIGHT);
+        }
+
+        public bool CollidesWith(List<SpriteItemsB> sprites)
+        {
+            foreach (SpriteItemsB sp in sprites)
                 if (this.CollidesWith(sp))
                     return true;
             return false;

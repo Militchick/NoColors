@@ -12,7 +12,7 @@ namespace No_Colors
     {
         //Base Class To Show All Images and Sprites
 
-        public static Images TilesSheetF = new Images("images/color_final_tiles.gif", 702, 411);
+        public static Image TilesSheetF = new Image("images/color_final_tiles.gif", 702, 411);
 
         public const short SPRITEF_WIDTH = 33; 
         public const short SPRITEF_HEIGHT = 17;

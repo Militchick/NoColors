@@ -16,7 +16,7 @@ namespace No_Colors
     class Level
     {
 
-        //IN PROGESS Open txt to read the levels from 1 to 5 
+        // Open txt to read the levels from 1 to 5 
 
         // List of Walls and Floors
 
@@ -47,11 +47,11 @@ namespace No_Colors
         // List of Scroll, Entrance, Exit, Enemies, etc...
 
         public List<Enemies> enemy { get; }
-        public Images BackgroundA { get; set; }
-        public Images BackgroundB { get; set; }
-        public Images BackgroundC { get; set; }
-        public Images BackgroundD { get; set; }
-        public Images BackgroundE { get; set; }
+        public Image BackgroundA { get; set; }
+        public Image BackgroundB { get; set; }
+        public Image BackgroundC { get; set; }
+        public Image BackgroundD { get; set; }
+        public Image BackgroundE { get; set; }
         public ExitPoint ExitLevel { get; set; }
         public ExitExPoint ExitExLevel { get; set; }
         public StartPoint Start { get; set; }
@@ -94,11 +94,11 @@ namespace No_Colors
             wallB = new List<SpriteA>();
             items = new List<SpriteItemsA>();
             enemy = new List<Enemies>();
-            BackgroundA = new Images("images/Background_white.gif", 2500, 920);
-            BackgroundB = new Images("images/Background_grey.gif", 2500, 920);
-            BackgroundC = new Images("images/Backgroundlastlevel_normalscroll.gif", 2500, 920);
-            BackgroundD = new Images("images/FinalBackground.gif", 13000, 650);
-            BackgroundE = new Images("images/Backgroundlastlevel_verticalscroll.gif", 920, 2500);
+            BackgroundA = new Image("images/Background_white.gif", 2500, 920);
+            BackgroundB = new Image("images/Background_grey.gif", 2500, 920);
+            BackgroundC = new Image("images/Backgroundlastlevel_normalscroll.gif", 2500, 920);
+            BackgroundD = new Image("images/FinalBackground.gif", 13000, 650);
+            BackgroundE = new Image("images/Backgroundlastlevel_verticalscroll.gif", 920, 2500);
 
             // Prepare Map
 

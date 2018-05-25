@@ -12,7 +12,7 @@ namespace No_Colors
     class CreditsScreen : Screen
     {
         Audio audio;
-        Images backCredits;
+        Image backCredits;
         Font fontm, fontb;
         IntroScreen intro;
 
@@ -20,7 +20,7 @@ namespace No_Colors
         {
             audio = new Audio(44100, 2, 4096);
             audio.AddMusic("audio/[CreditsScreen].mp3");
-            backCredits = new Images("images/backCredits.gif", 1200, 740);
+            backCredits = new Image("images/backCredits.gif", 1200, 740);
             fontm = new Font("fonts/vga850.fon", 18);
             fontb = new Font("fonts/vga850.fon", 24);
             backCredits.MoveTo(0, 0);

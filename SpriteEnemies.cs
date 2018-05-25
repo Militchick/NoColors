@@ -10,7 +10,7 @@ namespace No_Colors
     {
         //Base Class To Show All Images and Sprites
 
-        public static Images EnemiesSheet = new Images("images/Enemies.gif", 712, 128);
+        public static Image EnemiesSheet = new Image("images/Enemies.gif", 712, 128);
 
         //Small Enemies
 

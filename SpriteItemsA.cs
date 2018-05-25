@@ -12,7 +12,7 @@ namespace No_Colors
     {
         //Base Class To Show All Images and Sprites
 
-        public static Images ItemsSheetA = new Images("images/items_points.gif", 375, 524);
+        public static Image ItemsSheetA = new Image("images/items_points.gif", 375, 524);
 
         //Diferent Sizes
 
@@ -23,6 +23,8 @@ namespace No_Colors
         //Big (Only Stars or Flowers)
         public const short SPRITEIC_WIDTH = 25;
         public const short SPRITEIC_HEIGHT = 25;
+
+        public ushort Lives { get; set; }
 
         public short X { get; set; }
         public short Y { get; set; }

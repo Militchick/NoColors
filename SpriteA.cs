@@ -10,7 +10,7 @@ namespace No_Colors
     {
         //Base Class To Show All Images and Sprites
 
-        public static Images TilesSheetA = new Images("images/tiles.gif", 188, 56);
+        public static Image TilesSheetA = new Image("images/tiles.gif", 188, 56);
 
         public const short SPRITEA_WIDTH = 8; 
         public const short SPRITEA_HEIGHT = 9;

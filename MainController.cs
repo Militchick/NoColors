@@ -18,7 +18,7 @@ namespace No_Colors
         const float MAX_VERTICAL_SPEED = 2.0f;
         const float VERTICAL_SPEED_DECREMENT = 0.015f;
 
-        static void main(string[] args)
+        public void Start()
         {
             //Here will be the controller code to move 
             //"between screens with images" and the game
@@ -34,10 +34,10 @@ namespace No_Colors
             do
             {
                 hardware.ClearScreen();
+                intro = new IntroScreen(hardware);
                 intro.Show();
                 if (!intro.GetExit())
                 {
-                    intro.Show();
                     if(intro.ChoseMenu == 1)
                     {
                         chooseCharacter.Show();
@@ -50,13 +50,13 @@ namespace No_Colors
                     }
                     else if(intro.ChoseMenu == 2)
                     {
-                        help.Show();
                         help = new HelpScreen(hardware);
+                        help.Show();
                     }
                     else if(intro.ChoseMenu == 3)
                     {
-                        credits.Show();
                         credits = new CreditsScreen(hardware);
+                        credits.Show();
                     }
                 }
             }

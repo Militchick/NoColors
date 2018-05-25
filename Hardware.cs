@@ -4,6 +4,7 @@ using System.Linq;
 using Tao.Sdl;
 using System.Threading;
 
+//V 0.10 - Miguel Pastor (Trying to fix "Image not found" error)
 //V 0.05 - Miguel Pastor (KeyEvents)
 //V 0.02 - Miguel Pastor (Key Inputs, Arguments, Constructor, 
 //Destructor, Updating Screen Method, Clear Screen Method, and Add Text Method)
@@ -58,7 +59,7 @@ namespace No_Colors
 
         //Draws an image on Current Coordinates
 
-        public void DrawImage(Images img)
+        public void DrawImage(Image img)
         {
 
             Sdl.SDL_Rect source = new Sdl.SDL_Rect(0, 0, img.ImageWidth,
@@ -71,7 +72,7 @@ namespace No_Colors
         // Draws a sprite from a sprite sheet in 
         // the specified X and Y position of the screen
 
-        public void DrawImage(Images images, short x, short y, short width, short height)
+        public void DrawImage(Image images, short x, short y, short width, short height)
         {
             Sdl.SDL_Rect src = new Sdl.SDL_Rect(x, y, width, height);
             Sdl.SDL_Rect dest = new Sdl.SDL_Rect((short)images.GetX(), (short)images.GetY(),
@@ -79,7 +80,7 @@ namespace No_Colors
             Sdl.SDL_BlitSurface(images.GetImage(), ref src, screen, ref dest);
         }
 
-        public void DrawSprite(Images image, short xScreen, short yScreen, 
+        public void DrawSprite(Image image, short xScreen, short yScreen, 
             short x, short y, short width, short height)
         {
             Sdl.SDL_Rect src = new Sdl.SDL_Rect(x, y, width, height);
@@ -164,7 +165,7 @@ namespace No_Colors
             Thread.Sleep(milisegundos);
         }
 
-        public static void DrawHiddenImage(Images image, int x, int y)
+        public static void DrawHiddenImage(Image image, int x, int y)
         {
             drawHiddenImage(image.GetPointer(), x + startX, y + startY);
         }

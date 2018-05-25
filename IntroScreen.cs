@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Tao.Sdl;
 
+//V 0.10 - Miguel Pastor (Trying to fix "Image not found" error, and added hand selection)
 //V 0.03 - Miguel Pastor (Complete Main Menu)
 //V 0.01 - Miguel Pastor (Empty Skeleton)
 
@@ -12,12 +13,13 @@ namespace No_Colors
     {
 
         bool exit;
-        Images imgintro;
+        Image imgintro, imgLHand;
         Audio audio;
         ChooseCharacterScreen choseCharacter;
         HelpScreen help;
         CreditsScreen credits;
-        int choseMenu;
+        int choseMenu = 1;
+        int x = 21, y = 70;
 
         //Contains initial screen (Image) with a submenu where you can choose:
 
@@ -26,7 +28,8 @@ namespace No_Colors
             exit = false;
             audio = new Audio(44100, 2, 4096);
             audio.AddMusic("audio/[IntroScreen].mp3");
-            imgintro = new Images("images/IntroScreen.png", 1200, 740);
+            imgintro = new Image("images/IntroScreen.png", 1200, 740);
+            imgLHand = new Image("images/left_hand_light.gif", 144, 144);
             imgintro.MoveTo(0, 0);
         }
 
@@ -41,10 +44,15 @@ namespace No_Colors
             do
             {
                 int keyPressed = hardware.KeyPress();
-                if (keyPressed == Hardware.KEY_ESC)
+                if (keyPressed == Hardware.KEY_UP)
                 {
-                    escPressed = true;
-                    exit = true;
+                    choseMenu--;
+                    imgintro.MoveTo(x, y - 70);
+                }
+                else if(keyPressed == Hardware.KEY_DOWN)
+                {
+                    choseMenu++;
+                    imgintro.MoveTo(x, y + 70);
                 }
                 else if (keyPressed == Hardware.KEY_SPC)
                 {
@@ -73,32 +81,35 @@ namespace No_Colors
             }
             set
             {
-                if (value >= 1 && value <= 2)
+                if (value >= 1 && value <= 4)
                 {
                     choseMenu = value;
-                    switch (value)
+
+                    int keyPressed = hardware.KeyPress();
+                    if (keyPressed == Hardware.KEY_SPC)
                     {
-                        //Play the Game -> (To the ChooseCharacterScreen Class)
-                        case 1:
-                            choseCharacter = new ChooseCharacterScreen(hardware);
-                            break;
-                        //Help -> (To the HelpScreen Class)
-                        case 2:
-                            help = new HelpScreen(hardware);
-                            break;
-                        //Credits -> (To the CreditsScreen Class)
-                        case 3:
-                            credits = new CreditsScreen(hardware);
-                            break;
-                        //Exit -> (Quit The Game)
-                        case 4:
-                            GetExit();
-                            break;
+                        switch (value)
+                        {
+                            //Play the Game -> (To the ChooseCharacterScreen Class)
+                            case 1:
+                                choseCharacter = new ChooseCharacterScreen(hardware);
+                                break;
+                            //Help -> (To the HelpScreen Class)
+                            case 2:
+                                help = new HelpScreen(hardware);
+                                break;
+                            //Credits -> (To the CreditsScreen Class)
+                            case 3:
+                                credits = new CreditsScreen(hardware);
+                                break;
+                            //Exit -> (Quit The Game)
+                            case 4:
+                                GetExit();
+                                break;
+                        }
                     }
                 }
             }
         }
-
-        //TODO The Hand (with their Shadow Hands) will be used to select option
     }
 }

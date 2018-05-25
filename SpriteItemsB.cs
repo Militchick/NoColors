@@ -12,7 +12,7 @@ namespace No_Colors
     {
         //Base Class To Show All Images and Sprites
 
-        public static Images ItemsSheetB = new Images("images/LastFinalGoal.gif", 290, 160);
+        public static Image ItemsSheetB = new Image("images/LastFinalGoal.gif", 290, 160);
         
         public const short SPRITEIB_WIDTH = 123; 
         public const short SPRITEIB_HEIGHT = 115;

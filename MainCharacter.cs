@@ -16,8 +16,8 @@ namespace No_Colors
         public MainCharacterA()
         {
             Points = 0;
+            Lives = 3;
         }
-
     }
 
     class MainCharacterB : MovableSpriteB
@@ -30,6 +30,7 @@ namespace No_Colors
         public MainCharacterB()
         {
             Points = 0;
+            Lives = 4;
         }
 
     }

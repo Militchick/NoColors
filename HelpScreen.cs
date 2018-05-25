@@ -14,7 +14,7 @@ namespace No_Colors
         bool back;
         Audio audio;
         IntroScreen intro;
-        Images imgHelp;
+        Image imgHelp;
         Font font;
 
         public HelpScreen(Hardware hardware) : base(hardware)
@@ -22,7 +22,7 @@ namespace No_Colors
             back = false;
             audio = new Audio(44100, 2, 4096);
             audio.AddMusic("audio/[HelpScreen].mp3");
-            imgHelp = new Images("images/HelpScreen.gif", 1200, 740);
+            imgHelp = new Image("images/HelpScreen.gif", 1200, 740);
             imgHelp.MoveTo(0, 0);
         }
 
