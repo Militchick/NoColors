@@ -1,4 +1,5 @@
-﻿using System;
+﻿using No_Colors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Tao.Sdl;
@@ -22,13 +23,14 @@ namespace No_Colors
         int x = 21, y = 70;
 
         //Contains initial screen (Image) with a submenu where you can choose:
+        
 
         public IntroScreen(Hardware hardware) : base(hardware)
         {
             exit = false;
             audio = new Audio(44100, 2, 4096);
             audio.AddMusic("audio/[IntroScreen].mp3");
-            imgintro = new Image("images/IntroScreen.png", 1200, 740);
+            imgintro = new Image("images/IntroScreen.png", 1366, 768);
             imgLHand = new Image("images/left_hand_light.gif", 144, 144);
             imgintro.MoveTo(0, 0);
         }
@@ -38,6 +40,8 @@ namespace No_Colors
             bool escPressed = false; //Only for Debug
             bool spacePressed = false; 
             hardware.DrawImage(imgintro);
+            imgLHand.MoveTo(x, y);
+            hardware.DrawImage(imgLHand);
             hardware.UpdateScreen();
             audio.PlayMusic(0, -1);
 
@@ -47,12 +51,14 @@ namespace No_Colors
                 if (keyPressed == Hardware.KEY_UP)
                 {
                     choseMenu--;
-                    imgintro.MoveTo(x, y - 70);
+                    imgLHand.MoveTo(x, y - 70);
+                    hardware.DrawImage(imgLHand);
                 }
                 else if(keyPressed == Hardware.KEY_DOWN)
                 {
                     choseMenu++;
-                    imgintro.MoveTo(x, y + 70);
+                    imgLHand.MoveTo(x, y + 70);
+                    hardware.DrawImage(imgLHand);
                 }
                 else if (keyPressed == Hardware.KEY_SPC)
                 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Tao.Sdl;
 
+//V 0.11 - Miguel Pastor (Found a way to know Images errors and deleted code extra)
 //V 0.10 - Miguel Pastor (Trying to fix "Image not found" error)
 //V 0.02 - Miguel Pastor (Read Images)
 //V 0.01 - Miguel Pastor (Empty Skeleton)
@@ -19,14 +20,13 @@ namespace No_Colors
         public short ImageHeight { get; set; }
         public IntPtr ImagePtr { get; set; }
         float x, y;
-        private IntPtr internalPointer;
 
         public Image(string fileName, short width, short height)
         {
             ImagePtr = SdlImage.IMG_Load(fileName);
             if (ImagePtr == IntPtr.Zero)
             {
-                Console.WriteLine("Image not found");
+                Console.WriteLine("Image not found: " + fileName);
                 Environment.Exit(1);
             }
 
@@ -81,11 +81,6 @@ namespace No_Colors
             return (this.CollidesWith(img, this.GetImageWidth(), this.GetImageHeight(),
                 img.GetImageWidth(), img.GetImageHeight()) &&
                 img.GetY() >= this.GetY() + this.GetImageHeight() * 0.9);
-        }
-
-        public IntPtr GetPointer()
-        {
-            return internalPointer;
         }
     }
 }

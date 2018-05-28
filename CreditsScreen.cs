@@ -92,7 +92,7 @@ namespace No_Colors
                 nextName = false;
 
                 hardware.ClearScreen();
-                Hardware.DrawHiddenImage(backCredits, 0, 0);
+                hardware.DrawImage(backCredits);
                 Hardware.WriteHiddenText("Credits", 512, 10, 0x00, 0x00, 0x00, fontb);
                 yText = 40;
                 for(int i = 0; i < names.Length; i++)
@@ -109,7 +109,6 @@ namespace No_Colors
                 //That image also will have a message at the end saying "Press Space to Go Back"
 
                 Hardware.WriteHiddenText("PRESS SPACE TO GO BACK...", 10, (short)(yText + 15), 0x00, 0x00, 0x00, fontm);
-                Hardware.ShowHiddenScreen();
 
                 Hardware.Pause(20);
                 if (hardware.IsKPressed(Hardware.KEY_SPC))

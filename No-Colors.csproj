@@ -208,6 +208,8 @@
     <Content Include="audio\[IntroScreen].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="audio\[Item].wav" />
+    <Content Include="audio\[Jump].wav" />
     <Content Include="audio\[Level1].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -226,6 +228,9 @@
     <Content Include="audio\[PointScreen].mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="audio\[Select].wav" />
+    <Content Include="audio\[Smash].wav" />
+    <Content Include="audio\[ToLast].wav" />
     <Content Include="images\backCredits.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -321,7 +326,11 @@
     <Content Include="libpng12.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="libpng16-16.dll" />
     <Content Include="SDL.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SDL2_image.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SDL_gfx.dll">

@@ -23,13 +23,13 @@ namespace No_Colors
             //Here will be the controller code to move 
             //"between screens with images" and the game
 
-            Hardware hardware = new Hardware(1200, 740, 24, false);
-            
+            Hardware hardware = new Hardware(1366, 768, 24, false);
+
             IntroScreen intro = new IntroScreen(hardware);
             CreditsScreen credits = new CreditsScreen(hardware);
             HelpScreen help = new HelpScreen(hardware);
             ChooseCharacterScreen chooseCharacter = new ChooseCharacterScreen(hardware);
-            GameScreen game;
+            GameScreen game = new GameScreen (hardware);
 
             do
             {

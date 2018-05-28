@@ -4,6 +4,7 @@ using System.Linq;
 using Tao.Sdl;
 using System.Threading;
 
+//V 0.11 - Miguel Pastor (Found a way to know Images errors and deleted code extra)
 //V 0.10 - Miguel Pastor (Trying to fix "Image not found" error)
 //V 0.05 - Miguel Pastor (KeyEvents)
 //V 0.02 - Miguel Pastor (Key Inputs, Arguments, Constructor, 
@@ -29,10 +30,10 @@ namespace No_Colors
         short screenHeight;
         short screenWidth;
         short colorDepth;
-        IntPtr screen;
+        static IntPtr screen;
         static short width, height;
         static short startX, startY;
-        static IntPtr hiddenScreen;
+        /*static IntPtr hiddenScreen;*/
 
         public Hardware(short width, short height, short depth, bool fullScreen)
         {
@@ -165,15 +166,6 @@ namespace No_Colors
             Thread.Sleep(milisegundos);
         }
 
-        public static void DrawHiddenImage(Image image, int x, int y)
-        {
-            drawHiddenImage(image.GetPointer(), x + startX, y + startY);
-        }
-
-        public static void ShowHiddenScreen()
-        {
-            Sdl.SDL_Flip(hiddenScreen);
-        }
 
         public static void WriteHiddenText(string txt,
     short x, short y, byte r, byte g, byte b, Font f)
@@ -190,17 +182,9 @@ namespace No_Colors
                 width, height);
 
             Sdl.SDL_BlitSurface(textoComoImagen, ref origen,
-                hiddenScreen, ref dest);
+                screen, ref dest);
 
             Sdl.SDL_FreeSurface(textoComoImagen);
-        }
-
-        private static void drawHiddenImage(IntPtr image, int x, int y)
-        {
-            Sdl.SDL_Rect origin = new Sdl.SDL_Rect(0, 0, width, height);
-            Sdl.SDL_Rect dest = new Sdl.SDL_Rect((short)x, (short)y,
-                width, height);
-            Sdl.SDL_BlitSurface(image, ref origin, hiddenScreen, ref dest);
         }
 
         public static int GetWidth()

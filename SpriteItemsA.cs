@@ -12,7 +12,7 @@ namespace No_Colors
     {
         //Base Class To Show All Images and Sprites
 
-        public static Image ItemsSheetA = new Image("images/items_points.gif", 375, 524);
+        public static Image ItemsSheetA = new Image("images/item_points.gif", 375, 524);
 
         //Diferent Sizes
 
