@@ -11,8 +11,8 @@ namespace No_Colors
     class Audio
     {
 
-        //TODO This class will prepare the audio and play one theme for level
-        //IN PROGRESS Including One for the IntroScreen and ChooseCharacter
+        //This class will prepare the audio and play one theme for level
+        //Including One for the IntroScreen and ChooseCharacter
 
         List<IntPtr> audios;
         int channels;
@@ -29,7 +29,11 @@ namespace No_Colors
         {
             IntPtr file = SdlMixer.Mix_LoadWAV(fileName);
             if (file == IntPtr.Zero)
+            {
+                Console.Write("Audio WAV not found: " + fileName);
                 return false;
+            }
+
             audios.Add(file);
             return true;
         }
@@ -44,7 +48,10 @@ namespace No_Colors
         {
             IntPtr file = SdlMixer.Mix_LoadMUS(fileName);
             if (file == IntPtr.Zero)
+            {
+                Console.Write("Audio not found: " + fileName);
                 return false;
+            }
             audios.Add(file);
             return true;
         }

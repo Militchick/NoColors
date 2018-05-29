@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Tao.Sdl;
 
 //V 0.08 - Miguel Pastor (HelpScreen)
@@ -11,7 +12,7 @@ namespace No_Colors
     class HelpScreen : Screen
     {
         IntPtr textSpace;
-        bool back;
+        bool back = false;
         Audio audio;
         IntroScreen intro;
         Image imgHelp;
@@ -21,8 +22,10 @@ namespace No_Colors
         {
             back = false;
             audio = new Audio(44100, 2, 4096);
-            audio.AddMusic("audio/[HelpScreen].mp3");
-            imgHelp = new Image("images/HelpScreen.gif", 1200, 740);
+            intro = new IntroScreen(hardware);
+            audio.AddMusic("audio/[HelpScreen].wav");
+            font = new Font("fonts/vga850.fon", 24);
+            imgHelp = new Image("images/HelpScreen.gif", 1366, 698);
             imgHelp.MoveTo(0, 0);
         }
 
@@ -31,12 +34,8 @@ namespace No_Colors
             //Contains a Fixed Image explaining the game (With words)
             hardware.DrawImage(imgHelp);
             hardware.UpdateScreen();
-
-            //That image also will have a message saying "Press Space to Go Back"
-            Sdl.SDL_Color white = new Sdl.SDL_Color(0, 0, 0);
-            textSpace = SdlTtf.TTF_RenderText_Solid(font.GetFontType(), "PRESS SPACE TO GO BACK...", white);
             audio.PlayMusic(0, -1);
-
+            
             do
             {
                 int keyPressed = hardware.KeyPress();
@@ -46,7 +45,7 @@ namespace No_Colors
                     intro.Show();
                 }
             }
-            while (back == true);
+            while (back != true);
 
             back = false;
         }

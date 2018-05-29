@@ -60,28 +60,53 @@ namespace No_Colors
             level = new Level("levels/level1.txt");
             if (level == new Level ("levels/level1.txt")) //Trying something #1
             {
-                audio.AddMusic("audio/[Level1].mp3");
+                audio.AddMusic("audio/[Level1].wav");
+                audio.PlayMusic(0, -1);
             }
             else if (level == new Level ("levels/level2.txt")) // #2
             {
-                audio.AddMusic("audio/[Level2].mp3");
+                audio.AddMusic("audio/[Level2].wav");
+                audio.PlayMusic(0, -1);
             }
             else if (level == new Level ("levels/level3.txt")) // #3
             {
-                audio.AddMusic("audio/[Level3].mp3");
+                audio.AddMusic("audio/[Level3].wav");
+                audio.PlayMusic(0, -1);
             }
             else if (level == new Level ("levels/level4.txt")) // #4
             {
-                audio.AddMusic("audio/[Level4].mp3");
+                audio.AddMusic("audio/[Level4].wav");
+                audio.PlayMusic(0, -1);
             }
             else if (level == new Level ("levels/level5.txt")) // #5
             {
-                audio.AddMusic("audio/[Level5].mp3");
+                audio.AddMusic("audio/[Level5].wav");
+                audio.PlayMusic(0, -1);
+            }
+            else if (level == new Level("levels/tolast.txt")) // #5,5
+            {
+                audio.AddMusic("audio/[ToLast].wav");
+                audio.PlayMusic(0, -1);
             }
             else if (level == new Level ("levels/levelend.txt")) // #FinalLevel
             {
-                audio.AddMusic("audio/[EndScreens].mp3");
-                audio.AddMusic("audio/[EndScreens2].mp3");
+                while(level == new Level("levels/levelend.txt"))
+                {
+                    bool firstwo = false;
+                    if (firstwo == false)
+                    {
+                        audio.AddMusic("audio/[EndScreens].wav");
+                        audio.PlayMusic(0, 0);
+                    }
+
+                    firstwo = true;
+
+                    if (firstwo == true)
+                    {
+                        audio.AddMusic("audio/[EndScreens2].wav");
+                        audio.PlayMusic(0, 0);
+                    }
+                }
             }
             initTexts();
         }

@@ -13,14 +13,15 @@ namespace No_Colors
     class IntroScreen : Screen
     {
 
-        bool exit;
+        bool spacePressed = false;
+        bool exit = false;
         Image imgintro, imgLHand;
-        Audio audio;
+        Audio audio, WAV;
         ChooseCharacterScreen choseCharacter;
         HelpScreen help;
         CreditsScreen credits;
         int choseMenu = 1;
-        int x = 21, y = 70;
+        float y = 61;
 
         //Contains initial screen (Image) with a submenu where you can choose:
         
@@ -29,44 +30,20 @@ namespace No_Colors
         {
             exit = false;
             audio = new Audio(44100, 2, 4096);
-            audio.AddMusic("audio/[IntroScreen].mp3");
-            imgintro = new Image("images/IntroScreen.png", 1366, 768);
-            imgLHand = new Image("images/left_hand_light.gif", 144, 144);
+            WAV = new Audio(44100, 2, 4096);
+            audio.AddMusic("audio/[IntroScreen].wav");
+            WAV.AddWAV("audio/[Select].wav");
+            imgintro = new Image("images/IntroScreen.png", 1366, 698);
+            imgLHand = new Image("images/left_hand_light.gif", 100, 100);
             imgintro.MoveTo(0, 0);
         }
 
         public override void Show()
         {
-            bool escPressed = false; //Only for Debug
-            bool spacePressed = false; 
-            hardware.DrawImage(imgintro);
-            imgLHand.MoveTo(x, y);
-            hardware.DrawImage(imgLHand);
-            hardware.UpdateScreen();
-            audio.PlayMusic(0, -1);
+            //bool escPressed = false; //Only for Debug
 
-            do
-            {
-                int keyPressed = hardware.KeyPress();
-                if (keyPressed == Hardware.KEY_UP)
-                {
-                    choseMenu--;
-                    imgLHand.MoveTo(x, y - 70);
-                    hardware.DrawImage(imgLHand);
-                }
-                else if(keyPressed == Hardware.KEY_DOWN)
-                {
-                    choseMenu++;
-                    imgLHand.MoveTo(x, y + 70);
-                    hardware.DrawImage(imgLHand);
-                }
-                else if (keyPressed == Hardware.KEY_SPC)
-                {
-                    spacePressed = true;
-                    exit = false;
-                }
-            }
-            while (!escPressed && !spacePressed);
+            audio.PlayMusic(0, -1);
+            Selection();
             audio.StopMusic();
         }
 
@@ -76,7 +53,56 @@ namespace No_Colors
 
         public bool GetExit()
         {
+            //exit = true;
             return exit;
+        }
+
+        public void Selection()
+        {
+            do
+            {
+                hardware.ClearScreen();
+                hardware.DrawImage(imgintro);
+                hardware.DrawImage(imgLHand);
+                hardware.UpdateScreen();
+
+                int keyPressed = hardware.KeyPress();
+                if (keyPressed == Hardware.KEY_DOWN)
+                {
+                    if (choseMenu >= 1 && choseMenu <= 3)
+                    {
+                        WAV.PlayWAV(0, 1, 0);
+                        choseMenu++;
+                        y += 250;
+                    }
+
+                    Console.WriteLine("Value: " + choseMenu + " Y: " + y);
+
+                    imgLHand.MoveTo(60, (short)(imgLHand.Y));
+                }
+                else if (keyPressed == Hardware.KEY_UP)
+                {
+
+                    if (choseMenu >= 2 && choseMenu <= 4)
+                    {
+                        WAV.PlayWAV(0, 1, 0);
+                        y -= 250;
+                        choseMenu--;
+                    }
+
+                    Console.WriteLine("Value: " + choseMenu + " Y: " + y);
+
+                    imgLHand.MoveTo(60, (float)(imgLHand.Y));
+                }
+                else if (keyPressed == Hardware.KEY_SPC)
+                {
+                    Console.WriteLine("Enter: " + choseMenu);
+                    WAV.PlayWAV(0, 1, 1);
+                    spacePressed = true;
+                    exit = false;
+                }
+            }
+            while (spacePressed != true);
         }
 
         public int ChoseMenu
@@ -87,29 +113,36 @@ namespace No_Colors
             }
             set
             {
+                choseMenu = value;
+
                 if (value >= 1 && value <= 4)
                 {
-                    choseMenu = value;
-
                     int keyPressed = hardware.KeyPress();
-                    if (keyPressed == Hardware.KEY_SPC)
+                    if (spacePressed == true)
                     {
                         switch (value)
                         {
                             //Play the Game -> (To the ChooseCharacterScreen Class)
                             case 1:
+                                Console.WriteLine("Play Value:" + value);
                                 choseCharacter = new ChooseCharacterScreen(hardware);
+                                choseCharacter.Show();
                                 break;
                             //Help -> (To the HelpScreen Class)
                             case 2:
+                                Console.WriteLine("Help Value:" + value);
                                 help = new HelpScreen(hardware);
+                                help.Show();
                                 break;
                             //Credits -> (To the CreditsScreen Class)
                             case 3:
+                                Console.WriteLine("Credits Value:" + value);
                                 credits = new CreditsScreen(hardware);
+                                credits.Show();
                                 break;
                             //Exit -> (Quit The Game)
                             case 4:
+                                Console.WriteLine("Exit Value:" + value);
                                 GetExit();
                                 break;
                         }

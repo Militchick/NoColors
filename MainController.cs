@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Tao.Sdl;
+using System.Threading;
 
 //V 0.03 - Miguel Pastor (Added Screens to Show)
 //V 0.02 - Miguel Pastor (Added Hardware Controller)
@@ -23,7 +24,7 @@ namespace No_Colors
             //Here will be the controller code to move 
             //"between screens with images" and the game
 
-            Hardware hardware = new Hardware(1366, 768, 24, false);
+            Hardware hardware = new Hardware(1366, 698, 24, false);
 
             IntroScreen intro = new IntroScreen(hardware);
             CreditsScreen credits = new CreditsScreen(hardware);
@@ -40,6 +41,7 @@ namespace No_Colors
                 {
                     if(intro.ChoseMenu == 1)
                     {
+                        Console.WriteLine("Received input: " + intro.ChoseMenu);
                         chooseCharacter.Show();
                         game = new GameScreen(hardware);
                         game.ChosenPlayer = chooseCharacter.GetChosenPlayer();
@@ -50,15 +52,21 @@ namespace No_Colors
                     }
                     else if(intro.ChoseMenu == 2)
                     {
+                        Console.WriteLine("Received input: " + intro.ChoseMenu);
+                        hardware.ClearScreen();
                         help = new HelpScreen(hardware);
                         help.Show();
                     }
                     else if(intro.ChoseMenu == 3)
                     {
+                        Console.WriteLine("Received input: " + intro.ChoseMenu);
+                        hardware.ClearScreen();
                         credits = new CreditsScreen(hardware);
                         credits.Show();
                     }
                 }
+
+                Thread.Sleep(5000);
             }
             while (!intro.GetExit());
         }

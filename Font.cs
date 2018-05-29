@@ -19,7 +19,7 @@ namespace No_Colors
             fontType = SdlTtf.TTF_OpenFont(fileName, fontSize);
             if(fontType == IntPtr.Zero)
             {
-                Console.WriteLine("Font type not found");
+                Console.WriteLine("Font type not found: " + fileName + " " + fontSize);
                 Environment.Exit(2);
             }
         }

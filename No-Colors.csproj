@@ -187,50 +187,60 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="audio\[ChooseCharacterScreen].mp3">
+    <Content Include="audio\[ChooseCharacterScreen].wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[CreditScreen].mp3">
+    <Content Include="audio\[CreditScreen].wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[EndScreens2].mp3">
+    <Content Include="audio\[EndScreens2].wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[EndScreens].mp3">
+    <Content Include="audio\[EndScreens].wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[GameOverScreen].mp3">
+    <Content Include="audio\[GameOverScreen].wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[HelpScreen].mp3">
+    <Content Include="audio\[HelpScreen].wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[IntroScreen].mp3">
+    <Content Include="audio\[IntroScreen].wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[Item].wav" />
-    <Content Include="audio\[Jump].wav" />
-    <Content Include="audio\[Level1].mp3">
+    <Content Include="audio\[Item].wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[Level2].mp3">
+    <Content Include="audio\[Jump].wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[Level3].mp3">
+    <Content Include="audio\[Level1].wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[Level4].mp3">
+    <Content Include="audio\[Level2].wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[Level5].mp3">
+    <Content Include="audio\[Level3].wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[PointScreen].mp3">
+    <Content Include="audio\[Level4].wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="audio\[Select].wav" />
-    <Content Include="audio\[Smash].wav" />
-    <Content Include="audio\[ToLast].wav" />
+    <Content Include="audio\[Level5].wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="audio\[PointScreen].wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="audio\[Select].wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="audio\[Smash].wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="audio\[ToLast].wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="images\backCredits.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -246,11 +256,18 @@
     <Content Include="images\Background_white.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\ChooseCharacter.gif" />
+    <Content Include="images\ChooseCharacterA1.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\ChooseCharacterA2.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="images\color_final_tiles.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\FinalBackground.gif" />
+    <Content Include="images\FinalBackground.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="images\GameOverImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -272,9 +289,15 @@
     <Content Include="images\left_hand_light.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\LoseLivesA.gif" />
-    <Content Include="images\LoseLivesB.gif" />
-    <Content Include="images\MC.gif" />
+    <Content Include="images\LoseLivesA.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\LoseLivesB.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\MC.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="images\more_tiles.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -330,9 +353,6 @@
     <Content Include="SDL.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SDL2_image.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="SDL_gfx.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -345,6 +365,7 @@
     <Content Include="SDL_ttf.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="smpeg.dll" />
     <Content Include="Tao.Sdl.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
