@@ -15,6 +15,7 @@ namespace No_Colors
 
         bool spacePressed = false;
         bool exit = false;
+        bool noexit = true;
         Image imgintro, imgLHand;
         Audio audio, WAV;
         ChooseCharacterScreen choseCharacter;
@@ -49,13 +50,6 @@ namespace No_Colors
 
         // Select Option (Only Space and Esc)
 
-        
-
-        public bool GetExit()
-        {
-            //exit = true;
-            return exit;
-        }
 
         public void Selection()
         {
@@ -97,9 +91,24 @@ namespace No_Colors
                 else if (keyPressed == Hardware.KEY_SPC)
                 {
                     Console.WriteLine("Enter: " + choseMenu);
-                    WAV.PlayWAV(0, 1, 1);
+
+                    if(choseMenu != 4)
+                    {
+                        noexit = true;
+                        exit = false;
+                        Console.WriteLine("ExitV1: " + exit);
+                        Console.WriteLine("ExitV2: " + noexit);
+                    }
+                    else
+                    {
+
+                        exit = true;
+                        noexit = false;
+                        Console.WriteLine("ExitV1: " + exit);
+                        Console.WriteLine("ExitV2: " + noexit);
+                    }
+
                     spacePressed = true;
-                    exit = false;
                 }
             }
             while (spacePressed != true);
@@ -149,6 +158,16 @@ namespace No_Colors
                     }
                 }
             }
+        }
+
+        public bool GetExit()
+        {
+            if (exit == true && noexit == false)
+            {
+                Console.WriteLine("Quitting...");
+                noexit = false;
+            }
+            return exit;
         }
     }
 }

@@ -174,7 +174,10 @@ namespace No_Colors
             IntPtr textoComoImagen = SdlTtf.TTF_RenderText_Solid(
                 f.GetFontType(), txt, color);
             if (textoComoImagen == IntPtr.Zero)
+            {
+                Console.WriteLine("NO TEXT FOUND");
                 Environment.Exit(5);
+            }
 
             Sdl.SDL_Rect origen = new Sdl.SDL_Rect(0, 0, width, height);
             Sdl.SDL_Rect dest = new Sdl.SDL_Rect(

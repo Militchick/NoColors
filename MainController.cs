@@ -34,8 +34,8 @@ namespace No_Colors
 
             do
             {
-                hardware.ClearScreen();
                 intro = new IntroScreen(hardware);
+                hardware.ClearScreen();
                 intro.Show();
                 if (!intro.GetExit())
                 {
@@ -64,11 +64,17 @@ namespace No_Colors
                         credits = new CreditsScreen(hardware);
                         credits.Show();
                     }
+                    else if (intro.ChoseMenu == 4)
+                    {
+                        Console.WriteLine("Received input: " + intro.ChoseMenu);
+                        hardware.ClearScreen();
+                        intro.GetExit();
+                    }
                 }
 
                 Thread.Sleep(5000);
             }
-            while (!intro.GetExit());
+            while (intro.GetExit() == true);
         }
     }
 }

@@ -15,13 +15,15 @@ namespace No_Colors
         Audio audio;
         Image backCredits;
         Font fontm, fontb;
-        IntroScreen intro;
+        //IntroScreen intro;
+        MainController controller;
 
         public CreditsScreen(Hardware hardware) : base(hardware)
         {
             audio = new Audio(44100, 2, 4096);
             audio.AddMusic("audio/[CreditScreen].wav");
             backCredits = new Image("images/backCredits.gif", 1366, 698);
+            controller = new MainController();
             fontm = new Font("fonts/vga850.fon", 18);
             fontb = new Font("fonts/vga850.fon", 24);
             backCredits.MoveTo(0, 0);
@@ -88,9 +90,11 @@ namespace No_Colors
 
         public void Show()
         {
+            audio.PlayMusic(0, -1);
+
             while(!finished)
             {
-                nextName = false;
+                nextName = true;
                 Console.WriteLine("Reached Cred. backCredits");
 
                 hardware.ClearScreen();
@@ -99,8 +103,7 @@ namespace No_Colors
 
                 int keyPressed = hardware.KeyPress();
 
-                if (keyPressed == Hardware.KEY_SPC)
-                    finished = true;
+                space();
 
                 Hardware.WriteHiddenText("Credits", 512, 10, 0x00, 0x00, 0x00, fontb);
                 yText = 40;
@@ -111,14 +114,13 @@ namespace No_Colors
                         Hardware.WriteHiddenText(bignames[j], 500, (short)(startY + yText), 0x00, 0x00, 0x00, fontb);
                         yText += 22;
                         hardware.UpdateScreen();
-                        if (keyPressed == Hardware.KEY_SPC)
-                            finished = true;
+                        space();
+
                     }
                     Hardware.WriteHiddenText(names[i], 500, (short)(startY + yText), 0x00, 0x00, 0x00, fontm);
                     yText += 22;
                     hardware.UpdateScreen();
-                    if (keyPressed == Hardware.KEY_SPC)
-                        finished = true;
+                    space();
                 }
 
                 //That image also will have a message at the end saying "Press Space to Go Back"
@@ -132,17 +134,29 @@ namespace No_Colors
                     finished = true;
                 
                 startY -= 2;
-
-                intro = new IntroScreen(hardware);
+                
                 if ((finished == true) || (nextName = false))
                 {
                     audio.StopMusic();
-                    intro.Show();
+                    controller.Start();
                 }
             }
         }
 
-        //TODO [Fixed Image]
+        public void space()
+        {
+
+            int keyPressed = hardware.KeyPress();
+
+            if (keyPressed == Hardware.KEY_SPC)
+                finished = true;
+            
+            if ((finished == true) || (nextName == false))
+            {
+                audio.StopMusic();
+                controller.Start();
+            }
+        }
 
     }
 }

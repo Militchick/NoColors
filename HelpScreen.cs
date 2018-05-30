@@ -14,7 +14,8 @@ namespace No_Colors
         IntPtr textSpace;
         bool back = false;
         Audio audio;
-        IntroScreen intro;
+        //IntroScreen intro;
+        MainController controller;
         Image imgHelp;
         Font font;
 
@@ -22,7 +23,8 @@ namespace No_Colors
         {
             back = false;
             audio = new Audio(44100, 2, 4096);
-            intro = new IntroScreen(hardware);
+            //intro = new IntroScreen(hardware);
+            controller = new MainController();
             audio.AddMusic("audio/[HelpScreen].wav");
             font = new Font("fonts/vga850.fon", 24);
             imgHelp = new Image("images/HelpScreen.gif", 1366, 698);
@@ -42,7 +44,7 @@ namespace No_Colors
                 if (keyPressed == Hardware.KEY_SPC)
                 {
                     back = true;
-                    intro.Show();
+                    controller.Start();
                 }
             }
             while (back != true);
