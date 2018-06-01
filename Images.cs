@@ -19,7 +19,7 @@ namespace No_Colors
         public short ImageWidth { get; set; }
         public short ImageHeight { get; set; }
         public IntPtr ImagePtr { get; set; }
-        float x, y;
+        public float x, y;
 
         public Image(string fileName, short width, short height)
         {

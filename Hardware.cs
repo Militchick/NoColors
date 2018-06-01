@@ -25,6 +25,8 @@ namespace No_Colors
         public const int KEY_RIGHT = Sdl.SDLK_RIGHT;
         public const int KEY_SPC = Sdl.SDLK_SPACE;
         public const int KEY_P = Sdl.SDLK_p;
+        public const int KEY_S = Sdl.SDLK_s;
+        public const int KEY_E = Sdl.SDLK_e;
 
         //All arguments to the Hardware Constructor and Destructor
         short screenHeight;

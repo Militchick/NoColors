@@ -4,6 +4,9 @@ using System.Linq;
 using Tao.Sdl;
 using System.Threading;
 
+//V 0.13 - Miguel Pastor (Fixed bug that made press two times space to confirm on IntroScreen
+//                        trying to fix way to Quit the game with other screens working, and Credits Screen
+//                        more or less working, TODO write all text)
 //V 0.03 - Miguel Pastor (Added Screens to Show)
 //V 0.02 - Miguel Pastor (Added Hardware Controller)
 //V 0.01 - Miguel Pastor (Almost Empty Skeleton, added width and height of the screen)
@@ -65,6 +68,37 @@ namespace No_Colors
                         credits.Show();
                     }
                     else if (intro.ChoseMenu == 4)
+                    {
+                        Console.WriteLine("Received input: " + intro.ChoseMenu);
+                        hardware.ClearScreen();
+                        intro.GetExit();
+                    }
+                    if (intro.ChoseMenu == 5)
+                    {
+                        Console.WriteLine("Received input: " + intro.ChoseMenu);
+                        chooseCharacter.Show();
+                        game = new GameScreen(hardware);
+                        game.ChosenPlayer = chooseCharacter.GetChosenPlayer();
+
+                        hardware.ClearScreen();
+                        game.Show();
+                        hardware.ClearScreen();
+                    }
+                    else if (intro.ChoseMenu == 6)
+                    {
+                        Console.WriteLine("Received input: " + intro.ChoseMenu);
+                        hardware.ClearScreen();
+                        help = new HelpScreen(hardware);
+                        help.Show();
+                    }
+                    else if (intro.ChoseMenu == 7)
+                    {
+                        Console.WriteLine("Received input: " + intro.ChoseMenu);
+                        hardware.ClearScreen();
+                        credits = new CreditsScreen(hardware);
+                        credits.Show();
+                    }
+                    else if (intro.ChoseMenu == 8)
                     {
                         Console.WriteLine("Received input: " + intro.ChoseMenu);
                         hardware.ClearScreen();

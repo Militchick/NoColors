@@ -1,99 +1,84 @@
-﻿using No_Colors;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Tao.Sdl;
-
-//V 0.10 - Miguel Pastor (Trying to fix "Image not found" error, and added hand selection)
-//V 0.03 - Miguel Pastor (Complete Main Menu)
-//V 0.01 - Miguel Pastor (Empty Skeleton)
+using System.Text;
+using System.Threading.Tasks;
 
 namespace No_Colors
 {
-    class IntroScreen : Screen
+    class IntroScreenSpa : Screen
     {
-        bool nomusic = false;
-        bool change = false;
+        public bool nomusic2 = false;
+        bool change = true;
         bool spacePressed = false;
         bool exit = false;
         bool noexit = true;
-        Image imgintro1, imgintro2, imgintro3, imgintro4, imgintrochange;
+        Image imgintros1, imgintros2, imgintros3, imgintros4, imgintrochange;
+        IntroScreen English;
         Audio audio, WAV;
         ChooseCharacterScreen choseCharacter;
-        IntroScreenSpa Spanish;
         HelpScreen help;
         CreditsScreen credits;
-        int choseMenu = 1;
+        int choseMenu = 5;
 
-        //Contains initial screen (Image) with a submenu where you can choose:
-        
-
-        public IntroScreen(Hardware hardware) : base(hardware)
+        public IntroScreenSpa(Hardware hardware) : base(hardware)
         {
             exit = false;
             audio = new Audio(44100, 2, 4096);
             WAV = new Audio(44100, 2, 4096);
             audio.AddMusic("audio/[IntroScreen].wav");
             WAV.AddWAV("audio/[Select].wav");
-            imgintro1 = new Image("images/IntroScreen.png", 1366, 698);
-            imgintro2 = new Image("images/IntroScreen_2.png", 1366, 698);
-            imgintro3 = new Image("images/IntroScreen_3.png", 1366, 698);
-            imgintro4 = new Image("images/IntroScreen_4.png", 1366, 698);
+            imgintros1 = new Image("images/IntroScreen_Spa.png", 1366, 698);
+            imgintros2 = new Image("images/IntroScreen_Spa_2.png", 1366, 698);
+            imgintros3 = new Image("images/IntroScreen_Spa_3.png", 1366, 698);
+            imgintros4 = new Image("images/IntroScreen_Spa_4.png", 1366, 698);
             imgintrochange = new Image("images/IntroScreen_Change.png", 1366, 698);
-            imgintro1.MoveTo(0, 0);
-            imgintro2.MoveTo(0, 0);
-            imgintro3.MoveTo(0, 0);
-            imgintro4.MoveTo(0, 0);
+            imgintros1.MoveTo(0, 0);
+            imgintros2.MoveTo(0, 0);
+            imgintros3.MoveTo(0, 0);
+            imgintros4.MoveTo(0, 0);
             imgintrochange.MoveTo(0, 0);
         }
-        
 
         public override void Show()
         {
-            //bool escPressed = false; //Only for Debug
-
             hardware.ClearScreen();
             hardware.DrawImage(imgintrochange);
             hardware.UpdateScreen();
             System.Threading.Thread.Sleep(1000);
             hardware.ClearScreen();
-            hardware.DrawImage(imgintro1);
+            hardware.DrawImage(imgintros1);
             hardware.UpdateScreen();
-            int choseMenu = 1;
+            int choseMenu = 5;
             Console.WriteLine("Value: " + choseMenu);
-
-            Console.WriteLine("Playing Music...");
-
-            audio.PlayMusic(0, -1);
-
-            Console.WriteLine("Waiting input...");
 
             do
             {
                 int keyPressed = hardware.KeyPress();
+
                 if (keyPressed == Hardware.KEY_DOWN)
                 {
-                    if (choseMenu >= 1 && choseMenu <= 3)
+                    if (choseMenu >= 5 && choseMenu <= 7)
                     {
                         WAV.PlayWAV(0, 1, 0);
                         choseMenu++;
 
-                        if (choseMenu == 2)
+                        if (choseMenu == 6)
                         {
                             hardware.ClearScreen();
-                            hardware.DrawImage(imgintro2);
+                            hardware.DrawImage(imgintros2);
                             hardware.UpdateScreen();
                         }
-                        else if (choseMenu == 3)
+                        else if (choseMenu == 7)
                         {
                             hardware.ClearScreen();
-                            hardware.DrawImage(imgintro3);
+                            hardware.DrawImage(imgintros3);
                             hardware.UpdateScreen();
                         }
-                        else if (choseMenu == 4)
+                        else if (choseMenu == 8)
                         {
                             hardware.ClearScreen();
-                            hardware.DrawImage(imgintro4);
+                            hardware.DrawImage(imgintros4);
                             hardware.UpdateScreen();
                         }
                     }
@@ -103,27 +88,27 @@ namespace No_Colors
                 else if (keyPressed == Hardware.KEY_UP)
                 {
 
-                    if (choseMenu >= 2 && choseMenu <= 4)
+                    if (choseMenu >= 6 && choseMenu <= 8)
                     {
                         WAV.PlayWAV(0, 1, 0);
                         choseMenu--;
 
-                        if (choseMenu == 1)
+                        if (choseMenu == 5)
                         {
                             hardware.ClearScreen();
-                            hardware.DrawImage(imgintro1);
+                            hardware.DrawImage(imgintros1);
                             hardware.UpdateScreen();
                         }
-                        else if (choseMenu == 2)
+                        else if (choseMenu == 6)
                         {
                             hardware.ClearScreen();
-                            hardware.DrawImage(imgintro2);
+                            hardware.DrawImage(imgintros2);
                             hardware.UpdateScreen();
                         }
-                        else if (choseMenu == 3)
+                        else if (choseMenu == 7)
                         {
                             hardware.ClearScreen();
-                            hardware.DrawImage(imgintro3);
+                            hardware.DrawImage(imgintros3);
                             hardware.UpdateScreen();
                         }
                     }
@@ -134,7 +119,7 @@ namespace No_Colors
                 {
                     Console.WriteLine("Enter: " + choseMenu);
 
-                    if (choseMenu != 4)
+                    if (choseMenu != 8)
                     {
                         noexit = true;
                         exit = false;
@@ -151,23 +136,23 @@ namespace No_Colors
 
                     spacePressed = true;
                 }
-                else if (keyPressed == Hardware.KEY_S)
+                else if (keyPressed == Hardware.KEY_E)
                 {
-                    change = true;
+                    change = false;
+                    Console.WriteLine("change Value = false");
                 }
 
-                if (change == true)
+                if (change == false)
                 {
-                    Spanish = new IntroScreenSpa(hardware);
-                    Spanish.Show();
+                    English = new IntroScreen(hardware);
+                    nomusic2 = true;
+                    English.Show();
                 }
-                
-            }
-            while (spacePressed == false || change == false);
+
+            } while (change == true || spacePressed == false);
 
             audio.StopMusic();
         }
-
 
 
         public int ChoseMenu
@@ -180,7 +165,7 @@ namespace No_Colors
             {
                 choseMenu = value;
 
-                if (value >= 1 && value <= 4)
+                if (value >= 5 && value <= 8)
                 {
                     int keyPressed = hardware.KeyPress();
                     if (spacePressed == true)
@@ -188,25 +173,25 @@ namespace No_Colors
                         switch (value)
                         {
                             //Play the Game -> (To the ChooseCharacterScreen Class)
-                            case 1:
+                            case 5:
                                 Console.WriteLine("Play Value:" + value);
                                 choseCharacter = new ChooseCharacterScreen(hardware);
                                 choseCharacter.Show();
                                 break;
                             //Help -> (To the HelpScreen Class)
-                            case 2:
+                            case 6:
                                 Console.WriteLine("Help Value:" + value);
                                 help = new HelpScreen(hardware);
                                 help.Show();
                                 break;
                             //Credits -> (To the CreditsScreen Class)
-                            case 3:
+                            case 7:
                                 Console.WriteLine("Credits Value:" + value);
                                 credits = new CreditsScreen(hardware);
                                 credits.Show();
                                 break;
                             //Exit -> (Quit The Game)
-                            case 4:
+                            case 8:
                                 Console.WriteLine("Exit Value:" + value);
                                 GetExit();
                                 break;
@@ -228,3 +213,5 @@ namespace No_Colors
         }
     }
 }
+
+

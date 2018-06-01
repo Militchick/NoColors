@@ -27,7 +27,7 @@ namespace No_Colors
             fontm = new Font("fonts/vga850.fon", 18);
             fontb = new Font("fonts/vga850.fon", 24);
             backCredits.MoveTo(0, 0);
-            Console.WriteLine("Reached Cred.Constructor");
+            Console.WriteLine("Pre-Operations Complete");
         }
 
         //Contains a Fixed Image with names of all involved on the proyect(or all names in class)
